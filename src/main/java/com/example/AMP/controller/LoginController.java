@@ -18,11 +18,9 @@ import java.util.ResourceBundle;
 import java.time.ZoneId;
 import java.io.Serializable;
 
+
 public class LoginController implements Initializable {
 
-    @FXML private Label welcomeText;@FXML protected void onHelloButtonClick() {
-        welcomeText.setText("Boner");
-    }
     @FXML private Label ErrorLabel;
     @FXML private Label LocationDataLabel;
     @FXML private Label LocationLabel;
@@ -33,7 +31,6 @@ public class LoginController implements Initializable {
     @FXML private TextField UsernameField;
     @FXML private Label UsernameLabel;
     @FXML private Label DatabaseStatusLabel;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -41,19 +38,20 @@ public class LoginController implements Initializable {
 
         DatabaseStatusLabel.setText(JDBC.connectionStatus);
 
-        if (Objects.equals(String.valueOf(Locale.getDefault()), "en_US")) {
-            UsernameLabel.setText("Username");
-            PasswordLabel.setText("Password");
-            LoginPortalLabel.setText("LOGIN PORTAL");
-            LoginButton.setText("Login");
-            ErrorLabel.setText("Username & Password Do Not Match! Try Again");
-        } else if (Objects.equals(String.valueOf(Locale.getDefault()), "fr_US")) {
-            UsernameLabel.setText("Nom d'utilisateur");
-            PasswordLabel.setText("Mot de passe");
-            LoginPortalLabel.setText("PORTAIL DE CONNEXION");
-            LoginButton.setText("Se Connecter");
-            ErrorLabel.setText("Le nom d'utilisateur et le mot de passe ne correspondent pas! Réessayez");
-        }
+        Locale L =  new Locale("fr","FR");
+
+        ResourceBundle LocalLang = ResourceBundle.getBundle("com.example.AMP.Bundle.Bundle", L);
+        UsernameLabel.setText(LocalLang.getString("UsernameLabel"));
+        PasswordLabel.setText(LocalLang.getString("PasswordLabel"));
+        LoginPortalLabel.setText(LocalLang.getString("LoginPortalLabel"));
+        LoginButton.setText(LocalLang.getString("LoginButton"));
+        ErrorLabel.setText(LocalLang.getString("ErrorLabel"));
+        // set Location string
+        // set Database status string
+
+        ZoneId thisZone = ZoneId.systemDefault();
+        System.out.println(thisZone);
+
     }
 
     @FXML void onLoginButtonClick(ActionEvent event) {
