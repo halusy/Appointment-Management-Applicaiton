@@ -42,7 +42,7 @@ public class LoginController implements Initializable {
 
         DatabaseStatusLabel.setText(JDBC.connectionStatus);
 
-        Locale L =  new Locale("fr","FR");
+        Locale L =  new Locale("en","FR");
 
         ResourceBundle LocalLang = ResourceBundle.getBundle("com.example.AMP.Bundle.Bundle", L);
         UsernameLabel.setText(LocalLang.getString("UsernameLabel"));
@@ -52,8 +52,6 @@ public class LoginController implements Initializable {
         ErrorLabel.setText(LocalLang.getString("ErrorLabel"));
         LocationLabel.setText(LocalLang.getString("LocationLabel"));
         LocationDataLabel.setText(String.valueOf(ZoneId.systemDefault()));
-
-        // set Database status string
 
     }
 
@@ -65,6 +63,7 @@ public class LoginController implements Initializable {
         if (LoginVerification.loginVerfication(UserUsername,UserPassword)){
 
             System.out.println("Login Successful");
+
 
         } else {
 
