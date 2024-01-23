@@ -7,11 +7,8 @@ import javafx.scene.control.Button;
 
 public class MainScheduleViewController {
 
-
     @FXML private Button LogoutButton;
-
     @FXML void onLogoutButtonClick(ActionEvent event) {
 
     }
-
 }
