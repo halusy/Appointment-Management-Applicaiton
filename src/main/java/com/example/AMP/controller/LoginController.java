@@ -1,6 +1,9 @@
 package com.example.AMP.controller;
 
 import com.example.AMP.helper.JDBC;
+import java.sql.*;
+
+import com.example.AMP.helper.LoginVerification;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -15,8 +18,9 @@ import java.time.zone.ZoneRulesProvider;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.time.ZoneId;
 import java.io.Serializable;
+
+import static com.example.AMP.helper.JDBC.connection;
 
 
 public class LoginController implements Initializable {
@@ -46,19 +50,31 @@ public class LoginController implements Initializable {
         LoginPortalLabel.setText(LocalLang.getString("LoginPortalLabel"));
         LoginButton.setText(LocalLang.getString("LoginButton"));
         ErrorLabel.setText(LocalLang.getString("ErrorLabel"));
-        // set Location string
-        // set Database status string
+        LocationLabel.setText(LocalLang.getString("LocationLabel"));
+        LocationDataLabel.setText(String.valueOf(ZoneId.systemDefault()));
 
-        ZoneId thisZone = ZoneId.systemDefault();
-        System.out.println(thisZone);
+        // set Database status string
 
     }
 
-    @FXML void onLoginButtonClick(ActionEvent event) {
+    @FXML void onLoginButtonClick(ActionEvent event) throws SQLException {
 
-        String H = String.valueOf(Locale.getDefault());
-        System.out.println(H);
-        ErrorLabel.setVisible(true);
+        String UserUsername = String.valueOf(UsernameField.getCharacters());
+        String UserPassword = String.valueOf(PasswordField.getCharacters());
+
+        if (LoginVerification.loginVerfication(UserUsername,UserPassword)){
+
+            System.out.println("Login Successful");
+
+        } else {
+
+            System.out.println("Login Failed");
+            ErrorLabel.setVisible(true);
+
+        }
+
+
+
 
 
     }
