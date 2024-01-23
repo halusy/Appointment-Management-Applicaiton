@@ -1,7 +1,6 @@
 package com.example.AMP.helper;
 
 import java.sql.*;
-
 public class LoginVerification{
 
     public static Boolean loginVerfication(String username, String password) throws SQLException {
