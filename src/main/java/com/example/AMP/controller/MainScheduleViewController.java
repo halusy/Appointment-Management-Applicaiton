@@ -31,11 +31,23 @@ public class MainScheduleViewController implements Initializable {
     @FXML void sortAppointmentsAllRadioToggle(ActionEvent event) {}
     @FXML void sortAppointmentsMonthRadioToggle(ActionEvent event) {}
     @FXML void sortAppointmentsWeekRadioToggle (ActionEvent event) {}
-    @FXML void viewCustomersRadioToggle(ActionEvent event) {}
+    @FXML void viewCustomersRadioToggle(ActionEvent event) {
+        if (viewCustomersRadio.isSelected() == true){
+            addButton.setText("cheese");
+        }
+
+        if (viewCustomersRadio.isSelected() == false){
+            System.out.println("ayo");
+        }
+    }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
 
+
+        //create and populate both a customer table view & an appointment table view
 
 
     }

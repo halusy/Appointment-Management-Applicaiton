@@ -2,6 +2,7 @@ package com.example.AMP.controller;
 
 import com.example.AMP.MainApplication;
 import com.example.AMP.helper.JDBC;
+import com.example.AMP.helper.LocaleDesignation;
 import java.io.IOException;
 import java.sql.*;
 import com.example.AMP.helper.LoginVerification;
@@ -43,15 +44,12 @@ public class LoginController implements Initializable {
 
         DatabaseStatusLabel.setText(JDBC.connectionStatus);
 
-        Locale L =  new Locale("en","FR");
-
-        ResourceBundle LocalLang = ResourceBundle.getBundle("com.example.AMP.Bundle.Bundle", L);
-        UsernameLabel.setText(LocalLang.getString("UsernameLabel"));
-        PasswordLabel.setText(LocalLang.getString("PasswordLabel"));
-        LoginPortalLabel.setText(LocalLang.getString("LoginPortalLabel"));
-        LoginButton.setText(LocalLang.getString("LoginButton"));
-        ErrorLabel.setText(LocalLang.getString("ErrorLabel"));
-        LocationLabel.setText(LocalLang.getString("LocationLabel"));
+        UsernameLabel.setText(LocaleDesignation.LocalLang.getString("UsernameLabel"));
+        PasswordLabel.setText(LocaleDesignation.LocalLang.getString("PasswordLabel"));
+        LoginPortalLabel.setText(LocaleDesignation.LocalLang.getString("LoginPortalLabel"));
+        LoginButton.setText(LocaleDesignation.LocalLang.getString("LoginButton"));
+        ErrorLabel.setText(LocaleDesignation.LocalLang.getString("ErrorLabel"));
+        LocationLabel.setText(LocaleDesignation.LocalLang.getString("LocationLabel"));
         LocationDataLabel.setText(String.valueOf(ZoneId.systemDefault()));
 
     }
