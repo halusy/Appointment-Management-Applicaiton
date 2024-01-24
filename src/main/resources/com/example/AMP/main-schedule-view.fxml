@@ -16,9 +16,9 @@
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
-      <Button fx:id="addAppointmentButton" layoutX="145.0" layoutY="342.0" mnemonicParsing="false" onAction="#onAddAppointmentButtonClick" text="Add Appointment" />
-      <Button fx:id="modifyAppointmentButton" layoutX="302.0" layoutY="342.0" mnemonicParsing="false" onAction="#onModifyAppointmentButtonClick" text="Modify Appointment" />
-      <Button fx:id="deleteAppointmentButton" layoutX="476.0" layoutY="342.0" mnemonicParsing="false" onAction="#onDeleteAppointmentButtonClick" text="Delete Appointment" />
+      <Button fx:id="addButton" layoutX="145.0" layoutY="342.0" mnemonicParsing="false" onAction="#onAddButtonClick" text="Add" />
+      <Button fx:id="modifyButton" layoutX="302.0" layoutY="342.0" mnemonicParsing="false" onAction="#onModifyButtonClick" text="Modify" />
+      <Button fx:id="deleteButton" layoutX="476.0" layoutY="342.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" text="Delete" />
       <Button fx:id="reportsButton" layoutX="35.0" layoutY="342.0" mnemonicParsing="false" onAction="#onReportsButtonClick" text="Reports" />
       <Button fx:id="LogoutButton" layoutX="637.0" layoutY="342.0" mnemonicParsing="false" onAction="#onLogoutButtonClick" text="Logout" />
       <RadioButton fx:id="viewCustomersRadio" layoutX="83.0" layoutY="51.0" mnemonicParsing="false" onAction="#viewCustomersRadioToggle" text="View Customers" />
