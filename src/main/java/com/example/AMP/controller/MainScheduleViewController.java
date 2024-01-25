@@ -2,6 +2,7 @@ package com.example.AMP.controller;
 
 import com.example.AMP.MainApplication;
 import com.example.AMP.helper.LocaleDesignation;
+import com.example.AMP.helper.PreviousSceneHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,12 +24,14 @@ public class MainScheduleViewController implements Initializable {
     @FXML private Button deleteButton;
     @FXML private Button modifyButton;
     @FXML private Button reportsButton;
+
     @FXML private RadioButton sortAppointmentsAllRadio;
-    @FXML private Label sortAppointmentsByLabel;
     @FXML private RadioButton sortAppointmentsMonthRadio;
     @FXML private RadioButton sortAppointmentsWeekRadio;
-    @FXML private Label titleLabel;
     @FXML private RadioButton viewCustomersRadio;
+
+    @FXML private Label titleLabel;
+    @FXML private Label sortAppointmentsByLabel;
 
     @FXML void onAddButtonClick(ActionEvent event) throws IOException {
 
@@ -36,7 +39,7 @@ public class MainScheduleViewController implements Initializable {
 
             Parent root = FXMLLoader.load(MainApplication.class.getResource("add-customer-view.fxml"));
             Stage stage = (Stage) viewCustomersRadio.getScene().getWindow();
-            Scene scene = new Scene(root, 720, 400);
+            Scene scene = new Scene(root, 316, 419);
             stage.setTitle("Appointment Management Program (AMP)");
             stage.setScene(scene);
             stage.show();
@@ -47,7 +50,7 @@ public class MainScheduleViewController implements Initializable {
 
             Parent root = FXMLLoader.load(MainApplication.class.getResource("add-appointment-view.fxml"));
             Stage stage = (Stage) viewCustomersRadio.getScene().getWindow();
-            Scene scene = new Scene(root, 720, 400);
+            Scene scene = new Scene(root, 565, 483);
             stage.setTitle("Appointment Management Program (AMP)");
             stage.setScene(scene);
             stage.show();
@@ -57,7 +60,7 @@ public class MainScheduleViewController implements Initializable {
     @FXML void onDeleteButtonClick(ActionEvent event) {}
     @FXML void onLogoutButtonClick(ActionEvent event) {
 
-
+        System.exit(1);
 
     }
     @FXML void onModifyButtonClick(ActionEvent event) throws IOException {
@@ -66,7 +69,7 @@ public class MainScheduleViewController implements Initializable {
 
             Parent root = FXMLLoader.load(MainApplication.class.getResource("modify-customer-view.fxml"));
             Stage stage = (Stage) viewCustomersRadio.getScene().getWindow();
-            Scene scene = new Scene(root, 720, 400);
+            Scene scene = new Scene(root, 316, 419);
             stage.setTitle("Appointment Management Program (AMP)");
             stage.setScene(scene);
             stage.show();
@@ -76,7 +79,7 @@ public class MainScheduleViewController implements Initializable {
 
             Parent root = FXMLLoader.load(MainApplication.class.getResource("modify-appointment-view.fxml"));
             Stage stage = (Stage) viewCustomersRadio.getScene().getWindow();
-            Scene scene = new Scene(root, 720, 400);
+            Scene scene = new Scene(root, 565, 483);
             stage.setTitle("Appointment Management Program (AMP)");
             stage.setScene(scene);
             stage.show();
@@ -118,6 +121,12 @@ public class MainScheduleViewController implements Initializable {
         addButton.setText(LocaleDesignation.LocalLang.getString("addAppointmentButtonText"));
         modifyButton.setText(LocaleDesignation.LocalLang.getString("modifyAppointmentButtonText"));
         deleteButton.setText(LocaleDesignation.LocalLang.getString("deleteAppointmentButtonText"));
+
+        if(PreviousSceneHelper.PreviousScene() == true){
+
+            viewCustomersRadio.fire();
+
+        }
 
         //create and populate both a customer table view & an appointment table view
 
