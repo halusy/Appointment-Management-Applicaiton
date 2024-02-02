@@ -10,13 +10,13 @@ public class Appointment {
     private Timestamp endDate;
     private Timestamp dateCreated;
     private String createdBy;
-    private Time lastUpdateDate;
+    private Timestamp lastUpdateDate;
     private String lastUpdatedBy;
     private int customerId;
     private int userId;
     private int contactId;
 
-    public Appointment(int appointmentId, String title, String description, String location, String type, Timestamp startDate, Timestamp endDate, Timestamp dateCreated, String createdBy, Time lastUpdateDate, String lastUpdatedBy,int customerId, int userId, int contactId) {
+    public Appointment(int appointmentId, String title, String description, String location, String type, Timestamp startDate, Timestamp endDate, Timestamp dateCreated, String createdBy, Timestamp lastUpdateDate, String lastUpdatedBy,int customerId, int userId, int contactId) {
         this.appointmentId = appointmentId;
         this.title = title;
         this.description = description;
@@ -106,11 +106,11 @@ public class Appointment {
         this.createdBy = createdBy;
     }
 
-    public Time getLastUpdateDate() {
+    public Timestamp getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(Time lastUpdateDate) {
+    public void setLastUpdateDate(Timestamp lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
 

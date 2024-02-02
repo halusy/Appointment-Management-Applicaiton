@@ -1,11 +1,13 @@
 package com.example.AMP.controller;
 
 import com.example.AMP.MainApplication;
+import com.example.AMP.models.Appointment;
 import com.example.AMP.helper.JDBC;
 import com.example.AMP.helper.LocaleDesignation;
 import java.io.IOException;
 import java.sql.*;
 import com.example.AMP.helper.LoginVerification;
+import com.example.AMP.helper.SQLAppointmentToObject;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -39,6 +41,12 @@ public class LoginController implements Initializable {
     @FXML private Label DatabaseStatusLabel;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        try {
+            SQLAppointmentToObject.SQLAppointmentToObjectMethod();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         ErrorLabel.setVisible(false);
 
