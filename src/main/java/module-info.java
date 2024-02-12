@@ -10,4 +10,7 @@ module com.example.AMP {
     exports com.example.AMP.controller;
     opens com.example.AMP.controller to javafx.fxml;
 
+    exports com.example.AMP.models;
+    opens com.example.AMP.models to javafx.fxml;
+
 }

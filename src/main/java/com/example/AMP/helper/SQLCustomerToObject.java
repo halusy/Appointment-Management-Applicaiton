@@ -52,6 +52,8 @@ public class SQLCustomerToObject {
 
             Customer customer = new Customer(customerId, name, address, postalCode, phoneNumber, createDate, createdBy, lastUpdateDate, lastUpdatedBy, divisionId);
 
+            ObservableListHelper.addCustomer(customer);
+
         }
     }
 }
