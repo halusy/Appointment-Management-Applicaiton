@@ -16,6 +16,8 @@ public class Customer {
     private String lastUpdatedBy;
     private int divisionId;
 
+    public static int customerCounter;
+
     public Customer(int customerId, String name, String address, String postalCode, String phoneNumber, Timestamp createDate, String createdBy, Timestamp lastUpdateDate, String lastUpdatedBy, int divisionId) {
         this.customerId = customerId;
         this.name = name;
@@ -27,6 +29,15 @@ public class Customer {
         this.lastUpdateDate = lastUpdateDate;
         this.lastUpdatedBy = lastUpdatedBy;
         this.divisionId = divisionId;
+
+        customerCounter++;
+
+    }
+
+    public static int customerIdGenerator(){
+
+        return customerCounter + 1;
+
     }
 
     public int getCustomerId() {

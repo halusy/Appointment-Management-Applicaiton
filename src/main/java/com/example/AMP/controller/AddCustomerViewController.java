@@ -1,7 +1,9 @@
 package com.example.AMP.controller;
 
 import com.example.AMP.MainApplication;
+import com.example.AMP.helper.LoginVerification;
 import com.example.AMP.helper.PreviousSceneHelper;
+import com.example.AMP.models.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
 public class AddCustomerViewController implements Initializable {
@@ -38,8 +42,40 @@ public class AddCustomerViewController implements Initializable {
 
     //FXML ChoiceBox Declarations
 
-    @FXML private ChoiceBox<?> customerCountryChoiceBox;
-    @FXML private ChoiceBox<?> customerDivisionChoiceBox;
+    @FXML private ChoiceBox<String> customerCountryChoiceBox;
+    @FXML private ChoiceBox<String> customerDivisionChoiceBox;
+
+    private String[] UsDivisionSelection = {"US"};
+    private String[] CaDivisionSelection = {"CANADA"};
+    private String[] UkDivisionSelection = {"UK"};
+    private String[] CountrySelection = {"United States", "Canada", "United Kingdom" };
+
+    public void getCountrySelection(ActionEvent event){
+
+        customerDivisionChoiceBox.setDisable(false);
+        customerDivisionChoiceBox.getItems().removeAll(UkDivisionSelection);
+        customerDivisionChoiceBox.getItems().removeAll(UsDivisionSelection);
+        customerDivisionChoiceBox.getItems().removeAll(CaDivisionSelection);
+
+        if (customerCountryChoiceBox.getValue() == "United States"){
+
+            customerDivisionChoiceBox.getItems().addAll(UsDivisionSelection);
+
+        } else if (customerCountryChoiceBox.getValue() == "Canada"){
+
+            customerDivisionChoiceBox.getItems().addAll(CaDivisionSelection);
+
+        } else if (customerCountryChoiceBox.getValue() == "United Kingdom"){
+
+            customerDivisionChoiceBox.getItems().addAll(UkDivisionSelection);
+
+        } else {
+
+            customerDivisionChoiceBox.setDisable(true);
+
+        }
+
+    }
 
     //FXML TextField Declarations
 
@@ -63,6 +99,33 @@ public class AddCustomerViewController implements Initializable {
     }
     @FXML void onCustomerAddFormSaveButtonClick(ActionEvent event) {
 
+
+
+        try {
+
+            int customerId = Customer.customerIdGenerator();
+            String name = String.valueOf(customerNameTextField);
+            String address = String.valueOf(customerAddressTextField);
+            String postalCode = String.valueOf(customerPostalCodeTextField);
+            String phoneNumber = String.valueOf(customerPhoneNumberTextField);
+            Timestamp createDate;
+            String createdBy = LoginVerification.getCurrentUser();
+            Timestamp lastUpdateDate = null;
+            String lastUpdatedBy = null;
+            //int divisionId = customerDivisionChoiceBox.getValue();
+
+
+
+        } catch (Exception e){
+
+
+
+        }
+
+
+
+
+
     }
 
     //End of FXML Declarations
@@ -71,6 +134,12 @@ public class AddCustomerViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         PreviousSceneHelper.PsSetterTrue();
+        customerCountryChoiceBox.getItems().addAll(CountrySelection);
+        customerCountryChoiceBox.setOnAction(this::getCountrySelection);
+        customerDivisionChoiceBox.setDisable(true);
+
+        customerIdTextField.setDisable(true);
+        customerIdTextField.setText(String.valueOf(Customer.customerIdGenerator()));
 
     }
 

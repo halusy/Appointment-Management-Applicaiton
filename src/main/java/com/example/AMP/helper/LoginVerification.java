@@ -3,6 +3,8 @@ package com.example.AMP.helper;
 import java.sql.*;
 public class LoginVerification{
 
+    public static String currentUser;
+
     public static Boolean loginVerfication(String username, String password) throws SQLException {
 
         String sql = "SELECT * FROM USERS WHERE User_Name = ? AND Password = ?";
@@ -23,7 +25,14 @@ public class LoginVerification{
         if (usrRetrival == null && pwRetrival == null){
             return false;
         } else {
+            currentUser = usrRetrival;
             return true;
         }
     }
+    public static String getCurrentUser(){
+
+        return currentUser;
+
+    }
+
 }
