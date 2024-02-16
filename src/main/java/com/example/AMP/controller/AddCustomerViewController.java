@@ -47,7 +47,16 @@ public class AddCustomerViewController implements Initializable {
     @FXML private ChoiceBox<String> customerCountryChoiceBox;
     @FXML private ChoiceBox<String> customerDivisionChoiceBox;
 
-    private String[] UsDivisionSelection = {"Alabama"};
+    private String[] UsDivisionSelection = {
+            "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
+            "Connecticut", "District of Columbia", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho",
+            "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana",
+            "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+            "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey",
+            "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma",
+            "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee",
+            "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+    };
     private String[] CaDivisionSelection = {"CANADA"};
     private String[] UkDivisionSelection = {"UK"};
     private String[] CountrySelection = {"United States", "Canada", "United Kingdom" };
