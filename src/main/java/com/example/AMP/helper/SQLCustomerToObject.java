@@ -2,6 +2,8 @@ package com.example.AMP.helper;
 
 import com.example.AMP.models.Appointment;
 import com.example.AMP.models.Customer;
+import javafx.collections.ObservableList;
+
 import java.sql.*;
 
 public class SQLCustomerToObject {
@@ -19,6 +21,7 @@ public class SQLCustomerToObject {
 
     public static void SQLCustomerToObjectMethod() throws SQLException {
 
+        ObservableListHelper.clearCustomers();
 
         String sql = "SELECT * FROM CUSTOMERS";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);

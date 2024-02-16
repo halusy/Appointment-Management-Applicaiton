@@ -1,11 +1,10 @@
 package com.example.AMP.controller;
 
 import com.example.AMP.MainApplication;
-import com.example.AMP.helper.ObservableListHelper;
+import com.example.AMP.helper.*;
 import com.example.AMP.models.Appointment;
 import com.example.AMP.models.Customer;
-import com.example.AMP.helper.LocaleDesignation;
-import com.example.AMP.helper.PreviousSceneHelper;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,8 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Time;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class MainScheduleViewController implements Initializable {
@@ -89,7 +87,46 @@ public class MainScheduleViewController implements Initializable {
 
         }
     }
-    @FXML void onDeleteButtonClick(ActionEvent event) {}
+    @FXML void onDeleteButtonClick(ActionEvent event) throws SQLException {
+
+        if (viewCustomersRadio.isSelected() == true){
+
+            int numOfAppointments = 0;
+
+            Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
+            int toDeleteId = selectedCustomer.getCustomerId();
+
+            String verifySql = "SELECT * FROM appointments WHERE Customer_ID = ?";
+            PreparedStatement ps = JDBC.connection.prepareStatement(verifySql);
+            ps.setInt(1, toDeleteId);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+                numOfAppointments++;
+            }
+
+            if (numOfAppointments == 0){
+
+                if (AlertHelper.confirmation("Are you sure?", "Are you sure you'd like to remove this customer from the database?")){
+
+                    String deleteSql = "DELETE FROM customers WHERE Customer_ID = ?";
+                    PreparedStatement ps2 = JDBC.connection.prepareStatement(deleteSql);
+                    ps2.setInt(1, toDeleteId);
+                    ps2.executeUpdate();
+
+                    SQLCustomerToObject.SQLCustomerToObjectMethod();
+
+                } else {
+                    return;
+                }
+
+            } else {
+
+                AlertHelper.warning("Warning!", "You must remove all appointments associated with this customer before you remove the customer");
+
+            }
+        }
+    }
     @FXML void onLogoutButtonClick(ActionEvent event) {
 
         System.exit(1);
@@ -191,8 +228,6 @@ public class MainScheduleViewController implements Initializable {
             customerTable.setVisible(true);
 
         }
-
-        //create and populate both a customer table view & an appointment table view
 
     }
 

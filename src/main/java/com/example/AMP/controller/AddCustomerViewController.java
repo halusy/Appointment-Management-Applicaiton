@@ -1,8 +1,7 @@
 package com.example.AMP.controller;
 
 import com.example.AMP.MainApplication;
-import com.example.AMP.helper.LoginVerification;
-import com.example.AMP.helper.PreviousSceneHelper;
+import com.example.AMP.helper.*;
 import com.example.AMP.models.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,12 +14,15 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ResourceBundle;
+import java.sql.*;
 
 public class AddCustomerViewController implements Initializable {
 
@@ -45,7 +47,7 @@ public class AddCustomerViewController implements Initializable {
     @FXML private ChoiceBox<String> customerCountryChoiceBox;
     @FXML private ChoiceBox<String> customerDivisionChoiceBox;
 
-    private String[] UsDivisionSelection = {"US"};
+    private String[] UsDivisionSelection = {"Alabama"};
     private String[] CaDivisionSelection = {"CANADA"};
     private String[] UkDivisionSelection = {"UK"};
     private String[] CountrySelection = {"United States", "Canada", "United Kingdom" };
@@ -97,34 +99,44 @@ public class AddCustomerViewController implements Initializable {
         stage.show();
 
     }
-    @FXML void onCustomerAddFormSaveButtonClick(ActionEvent event) {
+    @FXML void onCustomerAddFormSaveButtonClick(ActionEvent event) throws SQLException, IOException {
 
+        int customerId = Customer.customerIdGenerator();
+        String name = customerNameTextField.getText();
+        System.out.println(name);
+        String address = customerAddressTextField.getText();
+        String postalCode = customerPostalCodeTextField.getText();
+        String phoneNumber = customerPhoneNumberTextField.getText();
+        Timestamp createDate = Timestamp.from(Instant.now());
+        System.out.println(createDate);
+        String createdBy = LoginVerification.getCurrentUser();
+        Timestamp lastUpdateDate = null;
+        String lastUpdatedBy = null;
+        int divisionId = DivisionIdHelper.divisionIdRetriever(customerDivisionChoiceBox.getValue());
 
+        String sql = "INSERT INTO customers(Customer_ID, Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Update, Last_Updated_By, Division_ID) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, customerId);
+        ps.setString(2, name);
+        ps.setString(3, address);
+        ps.setString(4, postalCode);
+        ps.setString(5, phoneNumber);
+        ps.setTimestamp(6, createDate);
+        ps.setString(7, createdBy);
+        ps.setTimestamp(8, lastUpdateDate);
+        ps.setString(9, lastUpdatedBy);
+        ps.setInt(10, divisionId);
+        int Results = ps.executeUpdate();
+        System.out.println(Results);
 
-        try {
+        SQLCustomerToObject.SQLCustomerToObjectMethod();
 
-            int customerId = Customer.customerIdGenerator();
-            String name = String.valueOf(customerNameTextField);
-            String address = String.valueOf(customerAddressTextField);
-            String postalCode = String.valueOf(customerPostalCodeTextField);
-            String phoneNumber = String.valueOf(customerPhoneNumberTextField);
-            Timestamp createDate;
-            String createdBy = LoginVerification.getCurrentUser();
-            Timestamp lastUpdateDate = null;
-            String lastUpdatedBy = null;
-            //int divisionId = customerDivisionChoiceBox.getValue();
-
-
-
-        } catch (Exception e){
-
-
-
-        }
-
-
-
-
+        Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
+        Stage stage = (Stage) addCustomerFormTitleLabel.getScene().getWindow();
+        Scene scene = new Scene(root, 720, 400);
+        stage.setTitle("Appointment Management Program (AMP)");
+        stage.setScene(scene);
+        stage.show();
 
     }
 

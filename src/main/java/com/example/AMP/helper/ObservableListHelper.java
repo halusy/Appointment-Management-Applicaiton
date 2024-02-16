@@ -26,4 +26,11 @@ public class ObservableListHelper {
     public static void addCustomer(Customer newCustomer){
         customers.add(newCustomer);
     }
+
+    public static void clearCustomers(){
+
+        customers.clear();
+
+    }
+
 }
