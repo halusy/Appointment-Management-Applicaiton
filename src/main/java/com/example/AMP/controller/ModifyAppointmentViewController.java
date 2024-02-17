@@ -157,7 +157,6 @@ public class ModifyAppointmentViewController implements Initializable {
         customerIdChoiceBox.getItems().addAll(customerIdChoiceBoxValues);
         userIdChoiceBox.getItems().addAll(userIdChoiceBoxValues);
         contactIdChoiceBox.getItems().addAll(contactIdChoiceBoxValues);
-
         //Initialization of TextFields with Selected Appointment Information
         appointmentIdTextField.setDisable(true);
         Appointment currentAppointment = ObjectTransferHelper.getTransferAppointment();

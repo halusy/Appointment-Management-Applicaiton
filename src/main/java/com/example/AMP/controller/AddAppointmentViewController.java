@@ -1,7 +1,7 @@
 package com.example.AMP.controller;
 
 import com.example.AMP.MainApplication;
-import com.example.AMP.helper.PreviousSceneHelper;
+import com.example.AMP.helper.*;
 import com.example.AMP.models.Appointment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,15 +9,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class AddAppointmentViewController implements Initializable {
@@ -53,9 +55,14 @@ public class AddAppointmentViewController implements Initializable {
 
     //FXML ChoiceBox Declarations
 
-    @FXML private ChoiceBox<?> contactIdChoiceBox;
-    @FXML private ChoiceBox<?> customerIdChoiceBox;
-    @FXML private ChoiceBox<?> userIdChoiceBox;
+    @FXML private ChoiceBox<Integer> contactIdChoiceBox;
+    @FXML private ChoiceBox<Integer> customerIdChoiceBox;
+    @FXML private ChoiceBox<Integer> userIdChoiceBox;
+
+    //ChoiceBox Data Declaration
+    private Integer[] contactIdChoiceBoxValues = DescendingSequenceHelper.descendingSequenceRetriever("contacts");
+    private Integer[] customerIdChoiceBoxValues = DescendingSequenceHelper.descendingSequenceRetriever("customers");
+    private Integer[] userIdChoiceBoxValues = DescendingSequenceHelper.descendingSequenceRetriever("users");
 
     //FXML DatePicker Declarations
 
@@ -64,10 +71,20 @@ public class AddAppointmentViewController implements Initializable {
 
     //FXML Spinner Declarations
 
-    @FXML private Spinner<?> endTimeHourSpinner;
-    @FXML private Spinner<?> endTimeMinuteSpinner;
-    @FXML private Spinner<?> startTimeHourSpinner;
-    @FXML private Spinner<?> startTimeMinuteSpinner;
+    @FXML private Spinner<Integer> endTimeHourSpinner = new Spinner<>();
+    @FXML private Spinner<Integer> endTimeMinuteSpinner = new Spinner<>();
+    @FXML private Spinner<Integer> startTimeHourSpinner = new Spinner<>();
+    @FXML private Spinner<Integer> startTimeMinuteSpinner = new Spinner<>();
+
+    //Spinner Value Factory Define
+    SpinnerValueFactory<Integer> endHourFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(00, 23, 1);
+    SpinnerValueFactory<Integer> endMinuteFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(00, 59, 00);
+    SpinnerValueFactory<Integer> startHourFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(00, 23, 1);
+    SpinnerValueFactory<Integer> startMinuteFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(00, 59, 00);
+
+    public AddAppointmentViewController() throws SQLException {
+    }
+
 
     //FXML ActionEvent Declarations
 
@@ -81,7 +98,58 @@ public class AddAppointmentViewController implements Initializable {
         stage.show();
 
     }
-    @FXML void onAppointmentAddFormSaveButtonClick(ActionEvent event) {}
+    @FXML void onAppointmentAddFormSaveButtonClick(ActionEvent event) throws SQLException, IOException {
+
+        LocalDate newStartDate = startDatePicker.getValue();
+        LocalDate newEndDate = endDatePicker.getValue();
+
+        LocalDateTime newStart = LocalDateTime.of(newStartDate.getYear(), newStartDate.getMonthValue(), newStartDate.getDayOfMonth(), startTimeHourSpinner.getValue(), startTimeMinuteSpinner.getValue(), 0);
+        LocalDateTime newEnd = LocalDateTime.of(newEndDate.getYear(), newEndDate.getMonthValue(), newEndDate.getDayOfMonth(), endTimeHourSpinner.getValue(), endTimeMinuteSpinner.getValue(), 0);
+
+        int appointmentId = Appointment.appointmentIdGenerator();
+        String title = appointmentTitleTextField.getText();
+        String description = appointmentDescriptionTextField.getText();
+        String location = appointmentLocationTextField.getText();
+        String type = appointmentTypeTextField.getText();
+        int contactId = contactIdChoiceBox.getValue();
+        int customerId = customerIdChoiceBox.getValue();
+        int userId = userIdChoiceBox.getValue();
+        Timestamp start = Timestamp.valueOf(newStart);
+        Timestamp end = Timestamp.valueOf(newEnd);
+        String createdBy = LoginVerification.getCurrentUser();
+        Timestamp createDate = Timestamp.from(Instant.now());
+        Timestamp lastUpdateDate = null;
+        String lastUpdatedBy = null;
+
+        String sql = "INSERT INTO appointments(Appointment_ID, Title, Description, Location, Type, Start, End, " +
+                "Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setInt(1, appointmentId);
+        ps.setString(2, title);
+        ps.setString(3, description);
+        ps.setString(4, location);
+        ps.setString(5, type);
+        ps.setTimestamp(6, start);
+        ps.setTimestamp(7, end);
+        ps.setTimestamp(8, createDate);
+        ps.setString(9, createdBy);
+        ps.setTimestamp(10, lastUpdateDate);
+        ps.setString(11, lastUpdatedBy);
+        ps.setInt(12, customerId);
+        ps.setInt(13, userId);
+        ps.setInt(14, contactId);
+        int Results = ps.executeUpdate();
+
+        SQLAppointmentToObject.SQLAppointmentToObjectMethod();
+
+        Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
+        Stage stage = (Stage) addAppointmentFormTitleLabel.getScene().getWindow();
+        Scene scene = new Scene(root, 720, 400);
+        stage.setTitle("Appointment Management Program (AMP)");
+        stage.setScene(scene);
+        stage.show();
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -89,6 +157,17 @@ public class AddAppointmentViewController implements Initializable {
 
         appointmentIdTextField.setDisable(true);
         appointmentIdTextField.setText(String.valueOf(Appointment.appointmentIdGenerator()));
+
+        userIdChoiceBox.getItems().addAll(userIdChoiceBoxValues);
+        customerIdChoiceBox.getItems().addAll(customerIdChoiceBoxValues);
+        contactIdChoiceBox.getItems().addAll(contactIdChoiceBoxValues);
+
+        endTimeHourSpinner.setValueFactory(endHourFactory);
+        endTimeMinuteSpinner.setValueFactory(endMinuteFactory);
+        startTimeHourSpinner.setValueFactory(startHourFactory);
+        startTimeMinuteSpinner.setValueFactory(startMinuteFactory);
+
+        userIdChoiceBox.setValue(LoginVerification.getCurrentUserId());
 
         PreviousSceneHelper.PsSetterFalse();
 

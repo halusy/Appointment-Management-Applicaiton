@@ -115,12 +115,10 @@ public class AddCustomerViewController implements Initializable {
 
         int customerId = Customer.customerIdGenerator();
         String name = customerNameTextField.getText();
-        System.out.println(name);
         String address = customerAddressTextField.getText();
         String postalCode = customerPostalCodeTextField.getText();
         String phoneNumber = customerPhoneNumberTextField.getText();
         Timestamp createDate = Timestamp.from(Instant.now());
-        System.out.println(createDate);
         String createdBy = LoginVerification.getCurrentUser();
         Timestamp lastUpdateDate = null;
         String lastUpdatedBy = null;
