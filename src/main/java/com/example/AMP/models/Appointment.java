@@ -16,6 +16,8 @@ public class Appointment {
     private int userId;
     private int contactId;
 
+    public static int appointmentCounter;
+
     public Appointment(int appointmentId, String title, String description, String location, String type, Timestamp startDate, Timestamp endDate, Timestamp dateCreated, String createdBy, Timestamp lastUpdateDate, String lastUpdatedBy,int customerId, int userId, int contactId) {
         this.appointmentId = appointmentId;
         this.title = title;
@@ -31,6 +33,20 @@ public class Appointment {
         this.customerId = customerId;
         this.userId = userId;
         this.contactId = contactId;
+
+        appointmentCounter++;
+
+    }
+
+    public static int appointmentIdGenerator(){
+
+        return appointmentCounter + 1;
+
+    }
+
+    public static void resetAppointmentCounter(){
+
+        appointmentCounter = 0;
 
     }
 

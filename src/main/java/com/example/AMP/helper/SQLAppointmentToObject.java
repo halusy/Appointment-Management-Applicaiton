@@ -25,6 +25,8 @@ public class SQLAppointmentToObject{
 
     public static void SQLAppointmentToObjectMethod() throws SQLException {
 
+            ObservableListHelper.clearAppointments();
+            Appointment.resetAppointmentCounter();
 
             String sql = "SELECT * FROM APPOINTMENTS";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -46,22 +48,6 @@ public class SQLAppointmentToObject{
                 customerId = rs.getInt("Customer_ID");
                 userId = rs.getInt("User_ID");
                 contactId = rs.getInt("Contact_ID");
-
-                System.out.println(appointmentId);
-                System.out.println(title);
-                System.out.println(description);
-                System.out.println(location);
-                System.out.println(type);
-                System.out.println(startDate);
-                System.out.println(endDate);
-                System.out.println(dateCreated);
-                System.out.println(createdBy);
-                System.out.println(lastUpdateDate);
-                System.out.println(lastUpdatedBy);
-                System.out.println(customerId);
-                System.out.println(userId);
-                System.out.println(contactId);
-                System.out.println();
 
                 Appointment appointment = new Appointment(appointmentId, title, description, location, type, startDate, endDate, dateCreated, createdBy, lastUpdateDate, lastUpdatedBy, customerId, userId, contactId);
 

@@ -157,7 +157,7 @@ public class AddCustomerViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        PreviousSceneHelper.PsSetterTrue();
+
         customerCountryChoiceBox.getItems().addAll(CountrySelection);
         customerCountryChoiceBox.setOnAction(this::getCountrySelection);
         customerDivisionChoiceBox.setDisable(true);
@@ -165,6 +165,7 @@ public class AddCustomerViewController implements Initializable {
         customerIdTextField.setDisable(true);
         customerIdTextField.setText(String.valueOf(Customer.customerIdGenerator()));
 
+        PreviousSceneHelper.PsSetterTrue();
     }
 
 } //Main Class Closing Bracket

@@ -40,6 +40,12 @@ public class Customer {
 
     }
 
+    public static void resetCustomerCounter(){
+
+        customerCounter = 0;
+
+    }
+
     public int getCustomerId() {
         return customerId;
     }

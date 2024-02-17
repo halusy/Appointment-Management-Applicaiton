@@ -22,6 +22,7 @@ public class SQLCustomerToObject {
     public static void SQLCustomerToObjectMethod() throws SQLException {
 
         ObservableListHelper.clearCustomers();
+        Customer.resetCustomerCounter();
 
         String sql = "SELECT * FROM CUSTOMERS";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -39,19 +40,6 @@ public class SQLCustomerToObject {
             lastUpdateDate = rs.getTimestamp("Last_Update");
             lastUpdatedBy = rs.getString("Last_Updated_By");
             divisionId = rs.getInt("Division_ID");
-
-            System.out.println(customerId);
-            System.out.println(name);
-            System.out.println(address);
-            System.out.println(postalCode);
-            System.out.println(phoneNumber);
-            System.out.println(createDate);
-            System.out.println(createdBy);
-            System.out.println(lastUpdateDate);
-            System.out.println(lastUpdatedBy);
-            System.out.println(customerId);
-            System.out.println(divisionId);
-            System.out.println();
 
             Customer customer = new Customer(customerId, name, address, postalCode, phoneNumber, createDate, createdBy, lastUpdateDate, lastUpdatedBy, divisionId);
 

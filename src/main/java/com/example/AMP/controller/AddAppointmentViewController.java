@@ -2,6 +2,7 @@ package com.example.AMP.controller;
 
 import com.example.AMP.MainApplication;
 import com.example.AMP.helper.PreviousSceneHelper;
+import com.example.AMP.models.Appointment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -84,6 +85,10 @@ public class AddAppointmentViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+        appointmentIdTextField.setDisable(true);
+        appointmentIdTextField.setText(String.valueOf(Appointment.appointmentIdGenerator()));
 
         PreviousSceneHelper.PsSetterFalse();
 

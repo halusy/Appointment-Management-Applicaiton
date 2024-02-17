@@ -33,4 +33,10 @@ public class ObservableListHelper {
 
     }
 
+    public static void clearAppointments(){
+
+        appointments.clear();
+
+    }
+
 }

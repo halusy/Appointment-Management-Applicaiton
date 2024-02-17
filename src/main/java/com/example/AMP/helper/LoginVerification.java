@@ -4,6 +4,7 @@ import java.sql.*;
 public class LoginVerification{
 
     public static String currentUser;
+    public static int currentUserId;
 
     public static Boolean loginVerfication(String username, String password) throws SQLException {
 
@@ -15,9 +16,11 @@ public class LoginVerification{
 
         String usrRetrival = null;
         String pwRetrival = null;
+        int idRetrieval = -1;
 
         while(rs.next()){
 
+            idRetrieval = rs.getInt("User_ID");
             usrRetrival = rs.getString("User_Name");
             pwRetrival = rs.getString("Password");
 
@@ -26,12 +29,20 @@ public class LoginVerification{
             return false;
         } else {
             currentUser = usrRetrival;
+            currentUserId = idRetrieval;
+
             return true;
         }
     }
     public static String getCurrentUser(){
 
         return currentUser;
+
+    }
+
+    public static int getCurrentUserId(){
+
+        return currentUserId;
 
     }
 

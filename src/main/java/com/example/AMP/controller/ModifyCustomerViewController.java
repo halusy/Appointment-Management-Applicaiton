@@ -116,7 +116,7 @@ public class ModifyCustomerViewController implements Initializable {
     }
     @FXML void onCustomerModifyFormSaveButtonClick(ActionEvent event) throws SQLException, IOException {
 
-        Customer currentCustomer = CustomerTransferHelper.getTransferCustomer();
+        Customer currentCustomer = ObjectTransferHelper.getTransferCustomer();
 
         int customerId = currentCustomer.getCustomerId();
         String name = customerNameTextField.getText();
@@ -160,7 +160,7 @@ public class ModifyCustomerViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         PreviousSceneHelper.PsSetterTrue();
-        Customer currentCustomer = CustomerTransferHelper.getTransferCustomer();
+        Customer currentCustomer = ObjectTransferHelper.getTransferCustomer();
 
         int UsLowerBound = 1;
         int UsUpperBound = 54;
