@@ -144,4 +144,151 @@ public class DivisionIdHelper {
             return -1;
         }
     }
+    public static String divisionStringRetriever(int divisionId) {
+
+        switch (divisionId) {
+            case 1:
+                return "Alabama";
+            case 2:
+                return "Arizona";
+            case 3:
+                return "Arkansas";
+            case 4:
+                return "California";
+            case 5:
+                return "Colorado";
+            case 6:
+                return "Connecticut";
+            case 7:
+                return "Delaware";
+            case 8:
+                return "District of Columbia";
+            case 9:
+                return "Florida";
+            case 10:
+                return "Georgia";
+            case 11:
+                return "Idaho";
+            case 12:
+                return "Illinois";
+            case 13:
+                return "Indiana";
+            case 14:
+                return "Iowa";
+            case 15:
+                return "Kansas";
+            case 16:
+                return "Kentucky";
+            case 17:
+                return "Louisiana";
+            case 18:
+                return "Maine";
+            case 19:
+                return "Maryland";
+            case 20:
+                return "Massachusetts";
+            case 21:
+                return "Michigan";
+            case 22:
+                return "Minnesota";
+            case 23:
+                return "Mississippi";
+            case 24:
+                return "Missouri";
+            case 25:
+                return "Montana";
+            case 26:
+                return "Nebraska";
+            case 27:
+                return "Nevada";
+            case 28:
+                return "New Hampshire";
+            case 29:
+                return "New Jersey";
+            case 30:
+                return "New Mexico";
+            case 31:
+                return "New York";
+            case 32:
+                return "North Carolina";
+            case 33:
+                return "North Dakota";
+            case 34:
+                return "Ohio";
+            case 35:
+                return "Oklahoma";
+            case 36:
+                return "Oregon";
+            case 37:
+                return "Pennsylvania";
+            case 38:
+                return "Rhode Island";
+            case 39:
+                return "South Carolina";
+            case 40:
+                return "South Dakota";
+            case 41:
+                return "Tennessee";
+            case 42:
+                return "Texas";
+            case 43:
+                return "Utah";
+            case 44:
+                return "Vermont";
+            case 45:
+                return "Virginia";
+            case 46:
+                return "Washington";
+            case 47:
+                return "West Virginia";
+            case 48:
+                return "Wisconsin";
+            case 49:
+                return "Wyoming";
+            case 54:
+                return "Alaska";
+            case 52:
+                return "Hawaii";
+            case 60:
+                return "Northwest Territories";
+            case 61:
+                return "Alberta";
+            case 62:
+                return "British Columbia";
+            case 63:
+                return "Manitoba";
+            case 64:
+                return "New Brunswick";
+            case 65:
+                return "Nova Scotia";
+            case 66:
+                return "Prince Edward Island";
+            case 67:
+                return "Ontario";
+            case 68:
+                return "Québec";
+            case 69:
+                return "Saskatchewan";
+            case 70:
+                return "Nunavut";
+            case 71:
+                return "Yukon";
+            case 72:
+                return "Newfoundland and Labrador";
+            case 101:
+                return "England";
+            case 102:
+                return "Wales";
+            case 103:
+                return "Scotland";
+            case 104:
+                return "Northern Ireland";
+            default:
+                return "Invalid divisionId";
+
+        }
+
+    }
 }
+
+

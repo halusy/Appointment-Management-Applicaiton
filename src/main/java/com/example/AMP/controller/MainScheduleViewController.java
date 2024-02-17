@@ -136,6 +136,8 @@ public class MainScheduleViewController implements Initializable {
 
         if (viewCustomersRadio.isSelected() == true){
 
+            CustomerTransferHelper.customerHolder(customerTable.getSelectionModel().getSelectedItem());
+
             Parent root = FXMLLoader.load(MainApplication.class.getResource("modify-customer-view.fxml"));
             Stage stage = (Stage) viewCustomersRadio.getScene().getWindow();
             Scene scene = new Scene(root, 316, 419);

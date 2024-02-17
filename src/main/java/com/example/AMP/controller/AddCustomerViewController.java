@@ -57,8 +57,11 @@ public class AddCustomerViewController implements Initializable {
             "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee",
             "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
     };
-    private String[] CaDivisionSelection = {"CANADA"};
-    private String[] UkDivisionSelection = {"UK"};
+    private String[] CaDivisionSelection = {
+            "Northwest Territories", "Alberta", "British Columbia", "Manitoba",
+            "New Brunswick", "Nova Scotia", "Prince Edward Island", "Ontario", "Québec",
+            "Saskatchewan", "Nunavut", "Yukon", "Newfoundland and Labrador"};
+    private String[] UkDivisionSelection = {"England", "Wales", "Northern Ireland", "Scotland"};
     private String[] CountrySelection = {"United States", "Canada", "United Kingdom" };
 
     public void getCountrySelection(ActionEvent event){
