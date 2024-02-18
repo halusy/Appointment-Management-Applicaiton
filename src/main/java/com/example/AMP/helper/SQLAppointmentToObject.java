@@ -7,7 +7,10 @@ import java.sql.*;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
+
+import static java.time.ZoneOffset.UTC;
 
 public class SQLAppointmentToObject{
 
@@ -52,15 +55,12 @@ public class SQLAppointmentToObject{
                 startDate = rs.getTimestamp("Start");
                 endDate = rs.getTimestamp("End");
 
-                Instant startTimeUTC = startDate.toInstant();
-                Instant endTimeUTC = endDate.toInstant();
+                Timestamp zonedStartDate = ZoneIdHelper.timeConverter(startDate);
+                Timestamp zonedEndDate = ZoneIdHelper.timeConverter(endDate);
+                Timestamp zonedDateCreated = ZoneIdHelper.timeConverter(dateCreated);
+                Timestamp zonedUpdatedDate = ZoneIdHelper.timeConverter(lastUpdateDate);
 
-                ZoneId localZoneId = ZoneId.systemDefault();
-
-                Timestamp localStartDate = Timestamp.valueOf(LocalDateTime.ofInstant(startTimeUTC, localZoneId));
-                Timestamp localEndDate = Timestamp.valueOf(LocalDateTime.ofInstant(endTimeUTC, localZoneId));
-
-                Appointment appointment = new Appointment(appointmentId, title, description, location, type, localStartDate, localEndDate, dateCreated, createdBy, lastUpdateDate, lastUpdatedBy, customerId, userId, contactId);
+                Appointment appointment = new Appointment(appointmentId, title, description, location, type, zonedStartDate, zonedEndDate, zonedDateCreated, createdBy, zonedUpdatedDate, lastUpdatedBy, customerId, userId, contactId);
 
                 ObservableListHelper.addAppointment(appointment);
                 ObservableListHelper.getAppointmentsByMonthSorter(appointment);

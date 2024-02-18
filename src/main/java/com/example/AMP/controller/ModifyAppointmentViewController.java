@@ -108,6 +108,9 @@ public class ModifyAppointmentViewController implements Initializable {
         Integer userId = LoginVerification.getCurrentUserId();
         Integer contactId = contactIdChoiceBox.getValue();
 
+        Timestamp utcStart = ZoneIdHelper.timeConverterUtc(start);
+        Timestamp utcEnd = ZoneIdHelper.timeConverterUtc(end);
+
         String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, " +
                 "Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -115,8 +118,8 @@ public class ModifyAppointmentViewController implements Initializable {
         ps.setString(2, description);
         ps.setString(3, location);
         ps.setString(4, type);
-        ps.setTimestamp(5, start);
-        ps.setTimestamp(6, end);
+        ps.setTimestamp(5, utcStart);
+        ps.setTimestamp(6, utcEnd);
         ps.setTimestamp(7, lastUpdated);
         ps.setString(8, updatedBy);
         ps.setInt(9, customerId);

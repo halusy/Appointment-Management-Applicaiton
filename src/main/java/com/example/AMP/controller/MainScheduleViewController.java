@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class MainScheduleViewController implements Initializable {
@@ -293,6 +295,12 @@ public class MainScheduleViewController implements Initializable {
         customerTable.setVisible(false);
         appointmentTable.setVisible(true);
         sortAppointmentsAllRadio.fire();
+
+        //15Min Appointment Warning
+
+
+
+        if(1<0){}
 
         if(PreviousSceneHelper.PreviousScene() == true){
 

@@ -26,6 +26,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.io.Serializable;
+import java.util.TimeZone;
+
 public class LoginController implements Initializable {
 
     @FXML private Label ErrorLabel;
@@ -40,6 +42,11 @@ public class LoginController implements Initializable {
     @FXML private Label DatabaseStatusLabel;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        ZoneIdHelper.setCurrentZone();
+
+        String timeZoneID = "UTC";
+        TimeZone.setDefault(TimeZone.getTimeZone(timeZoneID));
 
         try {
             SQLAppointmentToObject.SQLAppointmentToObjectMethod();
@@ -63,7 +70,7 @@ public class LoginController implements Initializable {
         LoginButton.setText(LocaleDesignation.LocalLang.getString("LoginButton"));
         ErrorLabel.setText(LocaleDesignation.LocalLang.getString("ErrorLabel"));
         LocationLabel.setText(LocaleDesignation.LocalLang.getString("LocationLabel"));
-        LocationDataLabel.setText(String.valueOf(ZoneId.systemDefault()));
+        LocationDataLabel.setText(String.valueOf(ZoneIdHelper.currentZone));
 
     }
     @FXML void onLoginButtonClick(ActionEvent event) throws SQLException, IOException {
