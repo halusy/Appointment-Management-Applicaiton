@@ -4,18 +4,15 @@ import com.example.AMP.MainApplication;
 import com.example.AMP.helper.*;
 import com.example.AMP.models.Appointment;
 import com.example.AMP.models.Customer;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -55,10 +52,11 @@ public class MainScheduleViewController implements Initializable {
     @FXML private Button modifyButton;
     @FXML private Button reportsButton;
 
-    @FXML private RadioButton sortAppointmentsAllRadio;
-    @FXML private RadioButton sortAppointmentsMonthRadio;
-    @FXML private RadioButton sortAppointmentsWeekRadio;
+    @FXML private RadioButton sortAppointmentsAllRadio = new RadioButton();
+    @FXML private RadioButton sortAppointmentsMonthRadio = new RadioButton();
+    @FXML private RadioButton sortAppointmentsWeekRadio = new RadioButton();
     @FXML private RadioButton viewCustomersRadio;
+    ToggleGroup appointmentSort = new ToggleGroup();
 
     @FXML private Label titleLabel;
     @FXML private Label sortAppointmentsByLabel;
@@ -125,6 +123,23 @@ public class MainScheduleViewController implements Initializable {
                 AlertHelper.warning("Warning!", "You must remove all appointments associated with this customer before you remove the customer");
 
             }
+        } if (viewCustomersRadio.isSelected() == false){
+
+            Appointment selectedAppointment = appointmentTable.getSelectionModel().getSelectedItem();
+            int toDeleteId = selectedAppointment.getAppointmentId();
+
+            if (AlertHelper.confirmation("Are you sure?", "Are you sure you'd like to remove this appointment from the database?")){
+
+                String deleteSql = "DELETE FROM appointments WHERE Appointment_ID = ?";
+                PreparedStatement ps2 = JDBC.connection.prepareStatement(deleteSql);
+                ps2.setInt(1, toDeleteId);
+                ps2.executeUpdate();
+
+                SQLAppointmentToObject.SQLAppointmentToObjectMethod();
+
+            } else {
+                return;
+            }
         }
     }
     @FXML void onLogoutButtonClick(ActionEvent event) {
@@ -170,9 +185,15 @@ public class MainScheduleViewController implements Initializable {
         stage.show();
 
     }
-    @FXML void sortAppointmentsAllRadioToggle(ActionEvent event) {}
-    @FXML void sortAppointmentsMonthRadioToggle(ActionEvent event) {}
-    @FXML void sortAppointmentsWeekRadioToggle (ActionEvent event) {}
+    @FXML void sortAppointmentsAllRadioToggle(ActionEvent event) {
+        appointmentTable.setItems(ObservableListHelper.getAppointments());
+    }
+    @FXML void sortAppointmentsMonthRadioToggle(ActionEvent event) {
+        appointmentTable.setItems(ObservableListHelper.getAppointmentsByMonth());
+    }
+    @FXML void sortAppointmentsWeekRadioToggle (ActionEvent event) {
+        appointmentTable.setItems(ObservableListHelper.getAppointmentsByWeek());
+    }
     @FXML void viewCustomersRadioToggle(ActionEvent event) {
 
         if (viewCustomersRadio.isSelected() == true){
@@ -181,6 +202,13 @@ public class MainScheduleViewController implements Initializable {
             deleteButton.setText(LocaleDesignation.LocalLang.getString("deleteCustomerButtonText"));
             appointmentTable.setVisible(false);
             customerTable.setVisible(true);
+            sortAppointmentsAllRadio.setSelected(false);
+            sortAppointmentsMonthRadio.setSelected(false);
+            sortAppointmentsWeekRadio.setSelected(false);
+            sortAppointmentsAllRadio.setVisible(false);
+            sortAppointmentsMonthRadio.setVisible(false);
+            sortAppointmentsWeekRadio.setVisible(false);
+            sortAppointmentsByLabel.setVisible(false);
         }
 
         if (viewCustomersRadio.isSelected() == false){
@@ -189,11 +217,20 @@ public class MainScheduleViewController implements Initializable {
             deleteButton.setText(LocaleDesignation.LocalLang.getString("deleteAppointmentButtonText"));
             appointmentTable.setVisible(true);
             customerTable.setVisible(false);
+            sortAppointmentsAllRadio.fire();
+            sortAppointmentsAllRadio.setVisible(true);
+            sortAppointmentsMonthRadio.setVisible(true);
+            sortAppointmentsWeekRadio.setVisible(true);
+            sortAppointmentsByLabel.setVisible(true);
         }
 
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
+
+        sortAppointmentsAllRadio.setToggleGroup(appointmentSort);
+        sortAppointmentsMonthRadio.setToggleGroup(appointmentSort);
+        sortAppointmentsWeekRadio.setToggleGroup(appointmentSort);
 
         appointmentTable.setItems(ObservableListHelper.getAppointments());
         appointmentContactIdCol.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("contactId"));
@@ -224,6 +261,7 @@ public class MainScheduleViewController implements Initializable {
         deleteButton.setText(LocaleDesignation.LocalLang.getString("deleteAppointmentButtonText"));
         customerTable.setVisible(false);
         appointmentTable.setVisible(true);
+        sortAppointmentsAllRadio.fire();
 
         if(PreviousSceneHelper.PreviousScene() == true){
 

@@ -52,6 +52,8 @@ public class SQLAppointmentToObject{
                 Appointment appointment = new Appointment(appointmentId, title, description, location, type, startDate, endDate, dateCreated, createdBy, lastUpdateDate, lastUpdatedBy, customerId, userId, contactId);
 
                 ObservableListHelper.addAppointment(appointment);
+                ObservableListHelper.getAppointmentsByMonthSorter(appointment);
+                ObservableListHelper.getAppointmentsByWeekSorter(appointment);
 
             }
     }
