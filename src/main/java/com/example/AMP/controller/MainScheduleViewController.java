@@ -231,7 +231,12 @@ public class MainScheduleViewController implements Initializable {
         titleLabel.setText(LocaleDesignation.LocalLang.getString("AmpTitleText"));
         LogoutButton.setText(LocaleDesignation.LocalLang.getString("logoutButtonText"));
         reportsButton.setText(LocaleDesignation.LocalLang.getString("reportsButtonText"));
+        viewCustomersRadio.setText(LocaleDesignation.LocalLang.getString("viewCustomersRadioButtonText"));
+
         sortAppointmentsByLabel.setText(LocaleDesignation.LocalLang.getString("SortAppointmentsByLabelText"));
+        sortAppointmentsAllRadio.setText(LocaleDesignation.LocalLang.getString("appointmentRadioButtonAllText"));
+        sortAppointmentsWeekRadio.setText(LocaleDesignation.LocalLang.getString("appointmentRadioButtonWeekText"));
+        sortAppointmentsMonthRadio.setText(LocaleDesignation.LocalLang.getString("appointmentRadioButtonMonthText"));
 
         sortAppointmentsAllRadio.setToggleGroup(appointmentSort);
         sortAppointmentsMonthRadio.setToggleGroup(appointmentSort);
