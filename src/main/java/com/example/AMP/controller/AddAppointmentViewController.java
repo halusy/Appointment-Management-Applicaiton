@@ -176,7 +176,7 @@ public class AddAppointmentViewController implements Initializable {
         appointmentTypeLabel.setText(LocaleDesignation.LocalLang.getString("addAptTypeText"));
         appointmentUserIdLabel.setText(LocaleDesignation.LocalLang.getString("addAptUserIdText"));
         appointmentAddFormSaveButton.setText(LocaleDesignation.LocalLang.getString("addAptSaveButtonText"));
-        cancelButton.setText("addAptCancelButtonText");
+        cancelButton.setText(LocaleDesignation.LocalLang.getString("addAptCancelButtonText"));
 
         appointmentIdTextField.setDisable(true);
         appointmentIdTextField.setText(String.valueOf(Appointment.appointmentIdGenerator()));

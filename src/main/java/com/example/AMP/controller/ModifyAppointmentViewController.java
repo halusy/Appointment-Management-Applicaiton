@@ -168,7 +168,7 @@ public class ModifyAppointmentViewController implements Initializable {
         appointmentTypeLabel.setText(LocaleDesignation.LocalLang.getString("modifyAptTypeText"));
         appointmentUserIdLabel.setText(LocaleDesignation.LocalLang.getString("modifyAptUserIdText"));
         appointmentModifyFormSaveButton.setText(LocaleDesignation.LocalLang.getString("modifyAptSaveButtonText"));
-        cancelButton.setText("modifyAptCancelButtonText");
+        cancelButton.setText(LocaleDesignation.LocalLang.getString("modifyAptCancelButtonText"));
         //Initializing ChoiceBoxes with their Value Ranges
         customerIdChoiceBox.getItems().addAll(customerIdChoiceBoxValues);
         userIdChoiceBox.getItems().addAll(userIdChoiceBoxValues);
