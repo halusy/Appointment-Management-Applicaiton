@@ -153,6 +153,22 @@ public class ModifyAppointmentViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        //Resource Language Designation
+        modifyAppointmentFormTitleLabel.setText(LocaleDesignation.LocalLang.getString("modifyAptMainTitleText"));
+        appointmentTitleLabel.setText(LocaleDesignation.LocalLang.getString("modifyAptTitleText"));
+        appointmentContactIdLabel.setText(LocaleDesignation.LocalLang.getString("modifyAptContactIdText"));
+        appointmentCustomerIdLabel.setText(LocaleDesignation.LocalLang.getString("modifyAptCustomerIdText"));
+        appointmentDescriptionLabel.setText(LocaleDesignation.LocalLang.getString("modifyAptDescriptionText"));
+        appointmentEndDateLabel.setText(LocaleDesignation.LocalLang.getString("modifyAptEndDateText"));
+        appointmentEndTimeLabel.setText(LocaleDesignation.LocalLang.getString("modifyAptEndTimeText"));
+        appointmentIdLabel.setText(LocaleDesignation.LocalLang.getString("modifyAptIdText"));
+        appointmentLocationLabel.setText(LocaleDesignation.LocalLang.getString("modifyAptLocationText"));
+        appointmentStartDateLabel.setText(LocaleDesignation.LocalLang.getString("modifyAptStartDateText"));
+        appointmentStartTimeLabel.setText(LocaleDesignation.LocalLang.getString("modifyAptStartTimeText"));
+        appointmentTypeLabel.setText(LocaleDesignation.LocalLang.getString("modifyAptTypeText"));
+        appointmentUserIdLabel.setText(LocaleDesignation.LocalLang.getString("modifyAptUserIdText"));
+        appointmentModifyFormSaveButton.setText(LocaleDesignation.LocalLang.getString("modifyAptSaveButtonText"));
+        cancelButton.setText("modifyAptCancelButtonText");
         //Initializing ChoiceBoxes with their Value Ranges
         customerIdChoiceBox.getItems().addAll(customerIdChoiceBoxValues);
         userIdChoiceBox.getItems().addAll(userIdChoiceBoxValues);

@@ -228,37 +228,63 @@ public class MainScheduleViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
 
+        titleLabel.setText(LocaleDesignation.LocalLang.getString("AmpTitleText"));
+        LogoutButton.setText(LocaleDesignation.LocalLang.getString("logoutButtonText"));
+        reportsButton.setText(LocaleDesignation.LocalLang.getString("reportsButtonText"));
+        sortAppointmentsByLabel.setText(LocaleDesignation.LocalLang.getString("SortAppointmentsByLabelText"));
+
         sortAppointmentsAllRadio.setToggleGroup(appointmentSort);
         sortAppointmentsMonthRadio.setToggleGroup(appointmentSort);
         sortAppointmentsWeekRadio.setToggleGroup(appointmentSort);
 
         appointmentTable.setItems(ObservableListHelper.getAppointments());
         appointmentContactIdCol.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("contactId"));
+        appointmentContactIdCol.setText(LocaleDesignation.LocalLang.getString("aContactText"));
         appointmentCustomerIdCol.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("customerId"));
+        appointmentCustomerIdCol.setText(LocaleDesignation.LocalLang.getString("aCustomerText"));
         appointmentTitleCol.setCellValueFactory(new PropertyValueFactory<Appointment, String>("title"));
+        appointmentTitleCol.setText(LocaleDesignation.LocalLang.getString("aTitleText"));
         appointmentUserIdCol.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("userId"));
+        appointmentUserIdCol.setText(LocaleDesignation.LocalLang.getString("aUserText"));
         appointmentTypeCol.setCellValueFactory(new PropertyValueFactory<Appointment, String>("type"));
+        appointmentTypeCol.setText(LocaleDesignation.LocalLang.getString("aTypeText"));
         appointmentLocationCol.setCellValueFactory(new PropertyValueFactory<Appointment, String>("location"));
+        appointmentLocationCol.setText(LocaleDesignation.LocalLang.getString("aLocationText"));
         appointmentIdCol.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("appointmentId"));
+        appointmentIdCol.setText(LocaleDesignation.LocalLang.getString("aIdText"));
         appointmentDescriptionCol.setCellValueFactory(new PropertyValueFactory<Appointment, String>("description"));
+        appointmentDescriptionCol.setText(LocaleDesignation.LocalLang.getString("aDescriptionText"));
         appointmentStartCol.setCellValueFactory(new PropertyValueFactory<Appointment, Timestamp>("startDate"));
+        appointmentStartCol.setText(LocaleDesignation.LocalLang.getString("aStartText"));
         appointmentEndCol.setCellValueFactory(new PropertyValueFactory<Appointment, Timestamp>("endDate"));
+        appointmentEndCol.setText(LocaleDesignation.LocalLang.getString("aEndText"));
 
         customerTable.setItems(ObservableListHelper.getCustomers());
         customerIdCol.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("customerId"));
+        customerIdCol.setText(LocaleDesignation.LocalLang.getString("cIdText"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("name"));
+        customerNameCol.setText(LocaleDesignation.LocalLang.getString("cNameText"));
         customerAddressCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("address"));
+        customerAddressCol.setText(LocaleDesignation.LocalLang.getString("cAddressText"));
         customerPostalCodeCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("postalCode"));
+        customerPostalCodeCol.setText(LocaleDesignation.LocalLang.getString("cPostalText"));
         customerDivisionIdCol.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("divisionId"));
+        customerDivisionIdCol.setText(LocaleDesignation.LocalLang.getString("cDivisionText"));
         customerPhoneCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("phoneNumber"));
+        customerPhoneCol.setText(LocaleDesignation.LocalLang.getString("cPhoneText"));
         customerCreateDateCol.setCellValueFactory(new PropertyValueFactory<Customer, Timestamp>("createDate"));
+        customerCreateDateCol.setText(LocaleDesignation.LocalLang.getString("cDateAddText"));
         customerCreatedByCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("createdBy"));
+        customerCreatedByCol.setText(LocaleDesignation.LocalLang.getString("cCreatorText"));
         customerLastUpdatedCol.setCellValueFactory(new PropertyValueFactory<Customer, Timestamp>("lastUpdateDate"));
+        customerLastUpdatedCol.setText(LocaleDesignation.LocalLang.getString("cLastUpdateDateText"));
         customerLastUpdatedByCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("lastUpdatedBy"));
+        customerLastUpdatedByCol.setText(LocaleDesignation.LocalLang.getString("cUpdatedByText"));
 
         addButton.setText(LocaleDesignation.LocalLang.getString("addAppointmentButtonText"));
         modifyButton.setText(LocaleDesignation.LocalLang.getString("modifyAppointmentButtonText"));
         deleteButton.setText(LocaleDesignation.LocalLang.getString("deleteAppointmentButtonText"));
+
         customerTable.setVisible(false);
         appointmentTable.setVisible(true);
         sortAppointmentsAllRadio.fire();

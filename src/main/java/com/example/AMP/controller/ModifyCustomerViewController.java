@@ -159,6 +159,18 @@ public class ModifyCustomerViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        //Bundle Text Declarations
+        modifyCustomerFormTitleLabel.setText(LocaleDesignation.LocalLang.getString("modifyCusTitle"));
+        customerIdLabel.setText(LocaleDesignation.LocalLang.getString("modifyCusCustomerIdText"));
+        customerNameLabel.setText(LocaleDesignation.LocalLang.getString("modifyCusNameText"));
+        customerAddressLabel.setText(LocaleDesignation.LocalLang.getString("modifyCusAddressText"));
+        customerPostalCodeLabel.setText(LocaleDesignation.LocalLang.getString("modifyCusPostalText"));
+        customerPhoneNumberLabel.setText(LocaleDesignation.LocalLang.getString("modifyCusPhoneText"));
+        customerCountryLabel.setText(LocaleDesignation.LocalLang.getString("modifyCusCountryText"));
+        customerDivisionLabel.setText(LocaleDesignation.LocalLang.getString("modifyCusDivisionText"));
+        customerModifyFormSaveButton.setText(LocaleDesignation.LocalLang.getString("modifyCusSaveButtonText"));
+        cancelButton.setText(LocaleDesignation.LocalLang.getString("modifyCusCancelButtonText"));
+
         PreviousSceneHelper.PsSetterTrue();
         Customer currentCustomer = ObjectTransferHelper.getTransferCustomer();
 

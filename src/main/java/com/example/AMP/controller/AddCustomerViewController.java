@@ -155,6 +155,17 @@ public class AddCustomerViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        //Bundle Text Declarations
+        addCustomerFormTitleLabel.setText(LocaleDesignation.LocalLang.getString("addCusTitle"));
+        customerIdLabel.setText(LocaleDesignation.LocalLang.getString("addCusCustomerIdText"));
+        customerNameLabel.setText(LocaleDesignation.LocalLang.getString("addCusNameText"));
+        customerAddressLabel.setText(LocaleDesignation.LocalLang.getString("addCusAddressText"));
+        customerPostalCodeLabel.setText(LocaleDesignation.LocalLang.getString("addCusPostalText"));
+        customerPhoneNumberLabel.setText(LocaleDesignation.LocalLang.getString("addCusPhoneText"));
+        customerCountryLabel.setText(LocaleDesignation.LocalLang.getString("addCusCountryText"));
+        customerDivisionLabel.setText(LocaleDesignation.LocalLang.getString("addCusDivisionText"));
+        customerAddFormSaveButton.setText(LocaleDesignation.LocalLang.getString("addCusSaveButtonText"));
+        cancelButton.setText(LocaleDesignation.LocalLang.getString("addCusCancelButtonText"));
 
         customerCountryChoiceBox.getItems().addAll(CountrySelection);
         customerCountryChoiceBox.setOnAction(this::getCountrySelection);

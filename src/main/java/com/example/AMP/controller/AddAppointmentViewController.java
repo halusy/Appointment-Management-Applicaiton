@@ -162,6 +162,21 @@ public class AddAppointmentViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        addAppointmentFormTitleLabel.setText(LocaleDesignation.LocalLang.getString("addAptMainTitleText"));
+        appointmentTitleLabel.setText(LocaleDesignation.LocalLang.getString("addAptTitleText"));
+        appointmentContactIdLabel.setText(LocaleDesignation.LocalLang.getString("addAptContactIdText"));
+        appointmentCustomerIdLabel.setText(LocaleDesignation.LocalLang.getString("addAptCustomerIdText"));
+        appointmentDescriptionLabel.setText(LocaleDesignation.LocalLang.getString("addAptDescriptionText"));
+        appointmentEndDateLabel.setText(LocaleDesignation.LocalLang.getString("addAptEndDateText"));
+        appointmentEndTimeLabel.setText(LocaleDesignation.LocalLang.getString("addAptEndTimeText"));
+        appointmentIdLabel.setText(LocaleDesignation.LocalLang.getString("addAptIdText"));
+        appointmentLocationLabel.setText(LocaleDesignation.LocalLang.getString("addAptLocationText"));
+        appointmentStartDateLabel.setText(LocaleDesignation.LocalLang.getString("addAptStartDateText"));
+        appointmentStartTimeLabel.setText(LocaleDesignation.LocalLang.getString("addAptStartTimeText"));
+        appointmentTypeLabel.setText(LocaleDesignation.LocalLang.getString("addAptTypeText"));
+        appointmentUserIdLabel.setText(LocaleDesignation.LocalLang.getString("addAptUserIdText"));
+        appointmentAddFormSaveButton.setText(LocaleDesignation.LocalLang.getString("addAptSaveButtonText"));
+        cancelButton.setText("addAptCancelButtonText");
 
         appointmentIdTextField.setDisable(true);
         appointmentIdTextField.setText(String.valueOf(Appointment.appointmentIdGenerator()));
