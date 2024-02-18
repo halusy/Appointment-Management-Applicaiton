@@ -17,9 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.util.ResourceBundle;
 
 public class AddAppointmentViewController implements Initializable {
@@ -100,11 +98,21 @@ public class AddAppointmentViewController implements Initializable {
     }
     @FXML void onAppointmentAddFormSaveButtonClick(ActionEvent event) throws SQLException, IOException {
 
+        ZoneId localTimeZone = ZoneId.systemDefault();
+
         LocalDate newStartDate = startDatePicker.getValue();
         LocalDate newEndDate = endDatePicker.getValue();
 
         LocalDateTime newStart = LocalDateTime.of(newStartDate.getYear(), newStartDate.getMonthValue(), newStartDate.getDayOfMonth(), startTimeHourSpinner.getValue(), startTimeMinuteSpinner.getValue(), 0);
         LocalDateTime newEnd = LocalDateTime.of(newEndDate.getYear(), newEndDate.getMonthValue(), newEndDate.getDayOfMonth(), endTimeHourSpinner.getValue(), endTimeMinuteSpinner.getValue(), 0);
+
+        ZonedDateTime startZonedDateTime = ZonedDateTime.of(newStart, localTimeZone);
+        // Convert ZonedDateTime to UTC
+        ZonedDateTime utcStartZonedDateTime = startZonedDateTime.withZoneSameInstant(ZoneId.of("UTC"));
+
+        // Extract LocalDateTime from the resulting ZonedDateTime
+        LocalDateTime utcStart = utcStartZonedDateTime.toLocalDateTime();
+
 
         int appointmentId = Appointment.appointmentIdGenerator();
         String title = appointmentTitleTextField.getText();
@@ -114,7 +122,7 @@ public class AddAppointmentViewController implements Initializable {
         int contactId = contactIdChoiceBox.getValue();
         int customerId = customerIdChoiceBox.getValue();
         int userId = userIdChoiceBox.getValue();
-        Timestamp start = Timestamp.valueOf(newStart);
+        Timestamp start = Timestamp.valueOf(utcStart);
         Timestamp end = Timestamp.valueOf(newEnd);
         String createdBy = LoginVerification.getCurrentUser();
         Timestamp createDate = Timestamp.from(Instant.now());

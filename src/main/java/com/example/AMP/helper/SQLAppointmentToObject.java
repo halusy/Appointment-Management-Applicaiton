@@ -4,6 +4,9 @@ import com.example.AMP.models.Appointment;
 import javafx.fxml.Initializable;
 import java.net.URL;
 import java.sql.*;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ResourceBundle;
 
 public class SQLAppointmentToObject{
@@ -39,8 +42,6 @@ public class SQLAppointmentToObject{
                 description = rs.getString("Description");
                 location = rs.getString("Location");
                 type = rs.getString("Type");
-                startDate = rs.getTimestamp("Start");
-                endDate = rs.getTimestamp("End");
                 dateCreated = rs.getTimestamp("Create_Date");
                 createdBy = rs.getString("Created_By");
                 lastUpdateDate = rs.getTimestamp("Last_Update");
@@ -48,8 +49,18 @@ public class SQLAppointmentToObject{
                 customerId = rs.getInt("Customer_ID");
                 userId = rs.getInt("User_ID");
                 contactId = rs.getInt("Contact_ID");
+                startDate = rs.getTimestamp("Start");
+                endDate = rs.getTimestamp("End");
 
-                Appointment appointment = new Appointment(appointmentId, title, description, location, type, startDate, endDate, dateCreated, createdBy, lastUpdateDate, lastUpdatedBy, customerId, userId, contactId);
+                Instant startTimeUTC = startDate.toInstant();
+                Instant endTimeUTC = endDate.toInstant();
+
+                ZoneId localZoneId = ZoneId.systemDefault();
+
+                Timestamp localStartDate = Timestamp.valueOf(LocalDateTime.ofInstant(startTimeUTC, localZoneId));
+                Timestamp localEndDate = Timestamp.valueOf(LocalDateTime.ofInstant(endTimeUTC, localZoneId));
+
+                Appointment appointment = new Appointment(appointmentId, title, description, location, type, localStartDate, localEndDate, dateCreated, createdBy, lastUpdateDate, lastUpdatedBy, customerId, userId, contactId);
 
                 ObservableListHelper.addAppointment(appointment);
                 ObservableListHelper.getAppointmentsByMonthSorter(appointment);
