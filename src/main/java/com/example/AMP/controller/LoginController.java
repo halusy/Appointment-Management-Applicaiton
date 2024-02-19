@@ -43,7 +43,9 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        PreviousSceneHelper.loginPageSetter();
         ZoneIdHelper.setCurrentZone();
+
 
         String timeZoneID = "UTC";
         TimeZone.setDefault(TimeZone.getTimeZone(timeZoneID));
@@ -71,7 +73,6 @@ public class LoginController implements Initializable {
         ErrorLabel.setText(LocaleDesignation.LocalLang.getString("ErrorLabel"));
         LocationLabel.setText(LocaleDesignation.LocalLang.getString("LocationLabel"));
         LocationDataLabel.setText(String.valueOf(ZoneIdHelper.currentZone));
-
     }
     @FXML void onLoginButtonClick(ActionEvent event) throws SQLException, IOException {
 

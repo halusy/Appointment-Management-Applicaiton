@@ -175,6 +175,7 @@ public class AddCustomerViewController implements Initializable {
         customerIdTextField.setText(String.valueOf(Customer.customerIdGenerator()));
 
         PreviousSceneHelper.PsSetterTrue();
+
     }
 
 } //Main Class Closing Bracket

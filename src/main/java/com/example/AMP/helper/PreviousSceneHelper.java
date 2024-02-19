@@ -21,4 +21,19 @@ public class PreviousSceneHelper {
 
     }
 
+    public static boolean Li = false;
+
+    public static void loginPageSetterFalse(){
+        Li = false;
+    }
+    public static void loginPageSetter(){
+        Li = true;
+    }
+    public static boolean loginGetter(){
+        if (Li){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

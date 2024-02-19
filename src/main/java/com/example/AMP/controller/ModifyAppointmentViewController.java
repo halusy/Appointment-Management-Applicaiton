@@ -204,5 +204,6 @@ public class ModifyAppointmentViewController implements Initializable {
         endTimeMinuteSpinner.getValueFactory().setValue(currentEndTimestamp.getMinute());
         //Tells PreviousSceneHelper that the last scene was an Appointment
         PreviousSceneHelper.PsSetterFalse();
+
     }
 } //Main Class End Bracket

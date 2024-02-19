@@ -104,12 +104,8 @@ public class AddAppointmentViewController implements Initializable {
         LocalDateTime newStart = LocalDateTime.of(newStartDate.getYear(), newStartDate.getMonthValue(), newStartDate.getDayOfMonth(), startTimeHourSpinner.getValue(), startTimeMinuteSpinner.getValue(), 0);
         LocalDateTime newEnd = LocalDateTime.of(newEndDate.getYear(), newEndDate.getMonthValue(), newEndDate.getDayOfMonth(), endTimeHourSpinner.getValue(), endTimeMinuteSpinner.getValue(), 0);
 
-
-
         Timestamp utcStart = ZoneIdHelper.timeConverterUtc(Timestamp.valueOf(newStart));
         Timestamp utcEnd = ZoneIdHelper.timeConverterUtc(Timestamp.valueOf(newEnd));
-
-
 
         int appointmentId = Appointment.appointmentIdGenerator();
         String title = appointmentTitleTextField.getText();

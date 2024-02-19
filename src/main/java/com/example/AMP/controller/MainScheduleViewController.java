@@ -230,6 +230,10 @@ public class MainScheduleViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
 
+        if (PreviousSceneHelper.loginGetter()){
+            OverlapChecker.fifteen();
+        }
+
         titleLabel.setText(LocaleDesignation.LocalLang.getString("AmpTitleText"));
         LogoutButton.setText(LocaleDesignation.LocalLang.getString("logoutButtonText"));
         reportsButton.setText(LocaleDesignation.LocalLang.getString("reportsButtonText"));
@@ -309,6 +313,8 @@ public class MainScheduleViewController implements Initializable {
             customerTable.setVisible(true);
 
         }
+
+        PreviousSceneHelper.loginPageSetterFalse();
 
     }
 
