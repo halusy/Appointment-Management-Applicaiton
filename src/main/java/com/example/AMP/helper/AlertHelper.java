@@ -9,7 +9,7 @@ public class AlertHelper {
     public static void warning(String warningTitle, String warningContent){
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Error");
+        alert.setTitle(LocaleDesignation.LocalLang.getString("warningTitle"));
         alert.setHeaderText(warningTitle);
         alert.setContentText(warningContent);
         alert.showAndWait();
@@ -19,7 +19,7 @@ public class AlertHelper {
     public static boolean confirmation(String confirmationHeader, String confrimationContent){
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Are You Sure?");
+        alert.setTitle(LocaleDesignation.LocalLang.getString("areYouSureTitle"));
         alert.setTitle(confirmationHeader);
         alert.setContentText(confrimationContent);
         Optional<ButtonType> Confirm = alert.showAndWait();

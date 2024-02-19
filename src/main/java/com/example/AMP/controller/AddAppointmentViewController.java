@@ -122,34 +122,46 @@ public class AddAppointmentViewController implements Initializable {
         Timestamp lastUpdateDate = null;
         String lastUpdatedBy = null;
 
-        String sql = "INSERT INTO appointments(Appointment_ID, Title, Description, Location, Type, Start, End, " +
-                "Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setInt(1, appointmentId);
-        ps.setString(2, title);
-        ps.setString(3, description);
-        ps.setString(4, location);
-        ps.setString(5, type);
-        ps.setTimestamp(6, start);
-        ps.setTimestamp(7, end);
-        ps.setTimestamp(8, createDate);
-        ps.setString(9, createdBy);
-        ps.setTimestamp(10, lastUpdateDate);
-        ps.setString(11, lastUpdatedBy);
-        ps.setInt(12, customerId);
-        ps.setInt(13, userId);
-        ps.setInt(14, contactId);
-        int Results = ps.executeUpdate();
+        if(OverlapChecker.isWithinBusinessHours(start, end)){
 
-        SQLAppointmentToObject.SQLAppointmentToObjectMethod();
+            if(OverlapChecker.customerOverlapChecker(customerId, start, end)){
 
-        Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
-        Stage stage = (Stage) addAppointmentFormTitleLabel.getScene().getWindow();
-        Scene scene = new Scene(root, 720, 400);
-        stage.setTitle("Appointment Management Program (AMP)");
-        stage.setScene(scene);
-        stage.show();
+                String sql = "INSERT INTO appointments(Appointment_ID, Title, Description, Location, Type, Start, End, " +
+                        "Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+                ps.setInt(1, appointmentId);
+                ps.setString(2, title);
+                ps.setString(3, description);
+                ps.setString(4, location);
+                ps.setString(5, type);
+                ps.setTimestamp(6, start);
+                ps.setTimestamp(7, end);
+                ps.setTimestamp(8, createDate);
+                ps.setString(9, createdBy);
+                ps.setTimestamp(10, lastUpdateDate);
+                ps.setString(11, lastUpdatedBy);
+                ps.setInt(12, customerId);
+                ps.setInt(13, userId);
+                ps.setInt(14, contactId);
+                int Results = ps.executeUpdate();
 
+                SQLAppointmentToObject.SQLAppointmentToObjectMethod();
+
+                Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
+                Stage stage = (Stage) addAppointmentFormTitleLabel.getScene().getWindow();
+                Scene scene = new Scene(root, 720, 400);
+                stage.setTitle("Appointment Management Program (AMP)");
+                stage.setScene(scene);
+                stage.show();
+            } else {
+
+                AlertHelper.warning("warning", "warning");
+
+            }
+
+        } else {AlertHelper.warning("warning","warning");
+
+        }
     }
 
     @Override

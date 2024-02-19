@@ -129,6 +129,7 @@ public class MainScheduleViewController implements Initializable {
 
             Appointment selectedAppointment = appointmentTable.getSelectionModel().getSelectedItem();
             int toDeleteId = selectedAppointment.getAppointmentId();
+            String appointmentType = selectedAppointment.getType();
 
             if (AlertHelper.confirmation("Are you sure?", "Are you sure you'd like to remove this appointment from the database?")){
 
@@ -136,6 +137,9 @@ public class MainScheduleViewController implements Initializable {
                 PreparedStatement ps2 = JDBC.connection.prepareStatement(deleteSql);
                 ps2.setInt(1, toDeleteId);
                 ps2.executeUpdate();
+
+                AlertHelper.warning(LocaleDesignation.LocalLang.getString("youDeletedAnAppointment"), LocaleDesignation.LocalLang.getString("deleteAppointmentFirst") + toDeleteId +
+                        " " + LocaleDesignation.LocalLang.getString("ofType") + appointmentType + " " + LocaleDesignation.LocalLang.getString("hadBeenDeleted"));
 
                 SQLAppointmentToObject.SQLAppointmentToObjectMethod();
 
@@ -300,11 +304,7 @@ public class MainScheduleViewController implements Initializable {
         appointmentTable.setVisible(true);
         sortAppointmentsAllRadio.fire();
 
-        //15Min Appointment Warning
 
-
-
-        if(1<0){}
 
         if(PreviousSceneHelper.PreviousScene() == true){
 
