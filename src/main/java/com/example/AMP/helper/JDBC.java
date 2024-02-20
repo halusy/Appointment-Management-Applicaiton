@@ -1,8 +1,5 @@
 package com.example.AMP.helper;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * This class manages the SQL Database Connection. It was already in place from the example project on the VM I am utilizing
@@ -34,6 +31,8 @@ public abstract class JDBC {
             Class.forName(driver); // Locate Driver
             connection = DriverManager.getConnection(jdbcUrl, userName, password); // reference Connection object
             connectionStatus = LocaleDesignation.LocalLang.getString("dbConnection");
+
+
         }
         catch(ClassNotFoundException e) {
             System.out.println("Error:" + e.getMessage());
