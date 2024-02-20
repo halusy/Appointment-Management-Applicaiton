@@ -3,6 +3,12 @@ package com.example.AMP.models;
 import java.sql.Time;
 import java.sql.Timestamp;
 
+/**
+ * This class defines a Customer Object.
+ *
+ * @author Nicholas Ryan
+ * @version 1.0
+ */
 public class Customer {
 
     private int customerId;
@@ -18,6 +24,20 @@ public class Customer {
 
     public static int customerCounter;
 
+    /**
+     * This method creates a new customer object.
+     *
+     * @param customerId
+     * @param name
+     * @param address
+     * @param postalCode
+     * @param phoneNumber
+     * @param createDate
+     * @param createdBy
+     * @param lastUpdateDate
+     * @param lastUpdatedBy
+     * @param divisionId
+     */
     public Customer(int customerId, String name, String address, String postalCode, String phoneNumber, Timestamp createDate, String createdBy, Timestamp lastUpdateDate, String lastUpdatedBy, int divisionId) {
         this.customerId = customerId;
         this.name = name;

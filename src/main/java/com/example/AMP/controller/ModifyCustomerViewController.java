@@ -23,10 +23,16 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ResourceBundle;
 
+/**
+ * This is the ModifyCustomerViewController Class. It contains various methods to facilitate the Modification of existing Customers in the SQL Database.
+ *
+ * @author Nicholas Ryan
+ * @version 1.0
+ */
+
 public class ModifyCustomerViewController implements Initializable {
 
     //FXML Label Declarations
-
     @FXML private Label modifyCustomerFormTitleLabel;
     @FXML private Label customerAddressLabel;
     @FXML private Label customerCountryLabel;
@@ -37,10 +43,10 @@ public class ModifyCustomerViewController implements Initializable {
     @FXML private Label customerIdLabel;
 
     //FXML ChoiceBox Declarations
-
     @FXML private ChoiceBox<String> customerCountryChoiceBox;
     @FXML private ChoiceBox<String> customerDivisionChoiceBox;
 
+    //ChoiceBox Content Initialization
     private String[] UsDivisionSelection = {
             "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
             "Connecticut", "District of Columbia", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho",
@@ -58,66 +64,76 @@ public class ModifyCustomerViewController implements Initializable {
     private String[] UkDivisionSelection = {"England", "Wales", "Northern Ireland", "Scotland"};
     private String[] CountrySelection = {"United States", "Canada", "United Kingdom" };
 
+    /**
+     * This method determines which Divisions will populate the DivisionChoiceBox based on the selected Country.
+     *
+     * @param event
+     */
     public void getCountrySelection(ActionEvent event){
 
+        //Resetting Division ChoiceBox
         customerDivisionChoiceBox.getItems().removeAll(UkDivisionSelection);
         customerDivisionChoiceBox.getItems().removeAll(UsDivisionSelection);
         customerDivisionChoiceBox.getItems().removeAll(CaDivisionSelection);
 
+        //Populating Division ChoiceBox based on Country Selection
         if (customerCountryChoiceBox.getValue() == "United States"){
-
             customerDivisionChoiceBox.getItems().addAll(UsDivisionSelection);
-
         } else if (customerCountryChoiceBox.getValue() == "Canada"){
-
             customerDivisionChoiceBox.getItems().addAll(CaDivisionSelection);
-
         } else if (customerCountryChoiceBox.getValue() == "United Kingdom"){
-
             customerDivisionChoiceBox.getItems().addAll(UkDivisionSelection);
-
         } else {
-
             customerDivisionChoiceBox.setDisable(true);
-
         }
-
     }
 
     //FXML Button Declarations
-
     @FXML private Button cancelButton;
     @FXML private Button customerModifyFormSaveButton;
 
     //FXML TextField Declarations
-
     @FXML private TextField customerAddressTextField;
     @FXML private TextField customerNameTextField;
     @FXML private TextField customerPhoneNumberTextField;
     @FXML private TextField customerPostalCodeTextField;
     @FXML private TextField customerIdTextField;
 
-    //FXML ActionEvent Declarations
-
+    /**
+     * This method moves the user back to the Main Scene when the Cancel Button is Clicked
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML void onCancelButtonClick(ActionEvent event) throws IOException {
 
-        if (AlertHelper.confirmation("Are You Sure?", "If you exit now, none of your changes will be saved!")){
+        if (AlertHelper.confirmation(LocaleDesignation.LocalLang.getString("areYouSureTitle"), LocaleDesignation.LocalLang.getString("noSave"))){
 
+            //Moves user to main view
             Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
             Stage stage = (Stage) modifyCustomerFormTitleLabel.getScene().getWindow();
             Scene scene = new Scene(root, 720, 400);
             stage.setTitle("Appointment Management Program (AMP)");
             stage.setScene(scene);
             stage.show();
-
         } else{
+            //User Canceled
             return;
         }
     }
+    /**
+     * This method executes when the User is ready to Modify an Existing Customer in the Database, and clicks the Save Button.
+     *
+     * @param event
+     * @throws SQLException
+     * @throws IOException
+     */
     @FXML void onCustomerModifyFormSaveButtonClick(ActionEvent event) throws SQLException, IOException {
 
+        //Retrieving customer from previous scene
         Customer currentCustomer = ObjectTransferHelper.getTransferCustomer();
 
+        //SQL Variable Prep
         int customerId = currentCustomer.getCustomerId();
         String name = customerNameTextField.getText();
         String address = customerAddressTextField.getText();
@@ -127,10 +143,7 @@ public class ModifyCustomerViewController implements Initializable {
         String lastUpdatedBy = LoginVerification.getCurrentUser();
         int divisionId = DivisionIdHelper.divisionIdRetriever(customerDivisionChoiceBox.getValue());
 
-        // UPDATE Customers
-        //SET ContactName = 'Alfred Schmidt', City= 'Frankfurt'
-        //WHERE CustomerID = 1;
-
+        //SQL Execution Update
         String sql = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Last_Update = ?, Last_Updated_By = ?, Division_ID = ? WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, name);
@@ -144,18 +157,23 @@ public class ModifyCustomerViewController implements Initializable {
         int Results = ps.executeUpdate();
         System.out.println(Results);
 
+        //Refreshing Customer Objects from updated Database
         SQLCustomerToObject.SQLCustomerToObjectMethod();
 
+        //Moves user back to main view
         Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
         Stage stage = (Stage) modifyCustomerFormTitleLabel.getScene().getWindow();
         Scene scene = new Scene(root, 720, 400);
         stage.setTitle("Appointment Management Program (AMP)");
         stage.setScene(scene);
         stage.show();
-
-
-
     }
+    /**
+     * This is the Initialize method, which will execute when the Modify Customer Scene is opened. It will initialize many important pieces of the Add Customer Scene.
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -171,7 +189,10 @@ public class ModifyCustomerViewController implements Initializable {
         customerModifyFormSaveButton.setText(LocaleDesignation.LocalLang.getString("modifyCusSaveButtonText"));
         cancelButton.setText(LocaleDesignation.LocalLang.getString("modifyCusCancelButtonText"));
 
+        //Tells program previous scene was a customer scene
         PreviousSceneHelper.PsSetterTrue();
+
+        //Sets selected customer values for Country and Division
         Customer currentCustomer = ObjectTransferHelper.getTransferCustomer();
 
         int UsLowerBound = 1;
@@ -189,6 +210,7 @@ public class ModifyCustomerViewController implements Initializable {
             customerCountryChoiceBox.setValue("United Kingdom");
         }
 
+        //Populates form with selected customers information
         customerIdTextField.setText(String.valueOf(currentCustomer.getCustomerId()));
         customerDivisionChoiceBox.setValue(DivisionIdHelper.divisionStringRetriever(currentCustomer.getDivisionId()));
         customerNameTextField.setText(currentCustomer.getName());
@@ -196,11 +218,11 @@ public class ModifyCustomerViewController implements Initializable {
         customerPostalCodeTextField.setText(currentCustomer.getPostalCode());
         customerPhoneNumberTextField.setText(currentCustomer.getPhoneNumber());
 
+        //Init ChoiceBox
         customerCountryChoiceBox.getItems().addAll(CountrySelection);
         customerCountryChoiceBox.setOnAction(this::getCountrySelection);
 
+        //Disables customer ID field
         customerIdTextField.setDisable(true);
-
     }
-
 } //Main Class Closing Bracket

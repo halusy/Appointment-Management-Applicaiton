@@ -48,7 +48,7 @@
       <ChoiceBox fx:id="contactChoiceBox" layoutX="299.0" layoutY="54.0" prefWidth="150.0" />
       <RadioButton fx:id="customersTypeRadio" layoutX="161.0" layoutY="22.0" mnemonicParsing="false" onAction="#customersTypeToggle" text="Appointments by Type" />
       <RadioButton fx:id="customersMonthRadio" layoutX="329.0" layoutY="22.0" mnemonicParsing="false" onAction="#customersMonthToggle" text="Appointments by Month" />
-      <RadioButton fx:id="customersCountryRadio" layoutX="528.0" layoutY="22.0" mnemonicParsing="false" onAction="#customersCountryToggle" text="Appointments by Location" />
+      <RadioButton fx:id="customersLocationRadio" layoutX="528.0" layoutY="22.0" mnemonicParsing="false" onAction="#customersLocationToggle" text="Appointments by Location" />
       <Label fx:id="totalOfLabel" layoutX="553.0" layoutY="58.0" text="Total Customers:" />
       <Label fx:id="numberOfSelectionLabel" layoutX="661.0" layoutY="58.0" text="customer Number" />
       <Label fx:id="currentSelectionLabel" layoutX="178.0" layoutY="58.0" text="Select Current Label" />

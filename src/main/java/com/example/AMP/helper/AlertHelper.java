@@ -4,8 +4,20 @@ import javafx.scene.control.ButtonType;
 
 import java.util.Optional;
 
+/**
+ * This class holds the relevant methods for Program Alers
+ *
+ * @author Nicholas Ryan
+ * @version 1.0
+ */
 public class AlertHelper {
 
+    /**
+     * This method takes two strings and alerts the user with a warning using the given Strings
+     *
+     * @param warningTitle
+     * @param warningContent
+     */
     public static void warning(String warningTitle, String warningContent){
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -13,9 +25,16 @@ public class AlertHelper {
         alert.setHeaderText(warningTitle);
         alert.setContentText(warningContent);
         alert.showAndWait();
-
     }
 
+    /**
+     *
+     * This method takes two strings and gets user confrimation of an action they want to take, and uses the given Strings
+     *
+     * @param confirmationHeader
+     * @param confrimationContent
+     * @return
+     */
     public static boolean confirmation(String confirmationHeader, String confrimationContent){
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -28,7 +47,5 @@ public class AlertHelper {
         } else {
             return false;
         }
-
     }
-
 }

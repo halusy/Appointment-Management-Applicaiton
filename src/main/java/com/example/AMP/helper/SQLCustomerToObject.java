@@ -6,6 +6,12 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 
+/**
+ * This class contains methods that convert SQL Database customers to the correct Java Object
+ *
+ * @author Nicholas Ryan
+ * @version 1.0
+ */
 public class SQLCustomerToObject {
 
     static int customerId;
@@ -19,6 +25,11 @@ public class SQLCustomerToObject {
     static String lastUpdatedBy;
     static int divisionId;
 
+    /**
+     * converts SQL Customers to Java Customer Objects
+     *
+     * @throws SQLException
+     */
     public static void SQLCustomerToObjectMethod() throws SQLException {
 
         ObservableListHelper.clearCustomers();

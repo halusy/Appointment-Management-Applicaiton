@@ -10,12 +10,21 @@ import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
+/**
+ * This class handles all the methods associated with appointment overlap, and scheduling appointments outside the normal business hours
+ *
+ * @author Nicholas Ryan
+ * @version 1.0
+ */
 public class OverlapChecker {
 
     static public ArrayList<Integer> appointmentsWithin15 = new ArrayList<>();
 
 
-
+    /**
+     *
+     * This method, when called, will let the user know if there are any existing appointment occurring within 15 minutes of the current time
+     */
     public static void fifteen() {
 
         ObservableList<Appointment> appointments = ObservableListHelper.getAppointments();
@@ -34,21 +43,25 @@ public class OverlapChecker {
             int results = convertedAptDate.compareTo(nowDate);
 
             if (results == 0 && isWithin15Minutes(nowe, convertedAptTime)) {
-
                 appointmentsWithin15.add(appointment.getAppointmentId());
-
             }
         } if (!(appointmentsWithin15.isEmpty())){
 
-            AlertHelper.warning("15", "The following appointment ID's " + appointmentsWithin15 + " are within 15 mins");
-
+            AlertHelper.warning(LocaleDesignation.LocalLang.getString("fifteen"), LocaleDesignation.LocalLang.getString("theFollowing") + " " + appointmentsWithin15 + " " + LocaleDesignation.LocalLang.getString("within"));
         } else {
 
-            AlertHelper.warning("all good", "all good");
-
+            AlertHelper.warning(LocaleDesignation.LocalLang.getString("allGood"), LocaleDesignation.LocalLang.getString("allGood2"));
         }
     }
 
+    /**
+     *
+     * This method checks if the appointments are within 15 minutes of the current time
+     *
+     * @param referenceDateTime
+     * @param appointmentTime
+     * @return
+     */
     private static boolean isWithin15Minutes(LocalDateTime referenceDateTime, LocalDateTime appointmentTime) {
 
         if (referenceDateTime.toLocalTime().isBefore(appointmentTime.toLocalTime())) {
@@ -65,6 +78,13 @@ public class OverlapChecker {
 
     }
 
+    /**
+     * This method checks if a given appointment is outside of normal business hours
+     *
+     * @param appointmentStartTime
+     * @param appointmentEndTime
+     * @return
+     */
     public static boolean isWithinBusinessHours(Timestamp appointmentStartTime, Timestamp appointmentEndTime) {
         // Assuming business hours from 9 AM to 5 PM in EST
 
@@ -93,6 +113,15 @@ public class OverlapChecker {
         }
     }
 
+    /**
+     *
+     * This method checks is two customer appointments overlap
+     *
+     * @param customerId
+     * @param startTime
+     * @param endTime
+     * @return
+     */
     public static boolean customerOverlapChecker(int customerId, Timestamp startTime, Timestamp endTime){
 
         ObservableList<Appointment> appointments = ObservableListHelper.getAppointments();

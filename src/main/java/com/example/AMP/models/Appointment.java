@@ -1,5 +1,12 @@
 package com.example.AMP.models;
 import java.sql.*;
+
+/**
+ * This class defines an appointment object.
+ *
+ * @author Nicholas Ryan
+ * @version 1.0
+ */
 public class Appointment {
     private int appointmentId;
     private String title;
@@ -18,6 +25,24 @@ public class Appointment {
 
     public static int appointmentCounter;
 
+    /**
+     * This method creates a new appointment object
+     *
+     * @param appointmentId
+     * @param title
+     * @param description
+     * @param location
+     * @param type
+     * @param startDate
+     * @param endDate
+     * @param dateCreated
+     * @param createdBy
+     * @param lastUpdateDate
+     * @param lastUpdatedBy
+     * @param customerId
+     * @param userId
+     * @param contactId
+     */
     public Appointment(int appointmentId, String title, String description, String location, String type, Timestamp startDate, Timestamp endDate, Timestamp dateCreated, String createdBy, Timestamp lastUpdateDate, String lastUpdatedBy,int customerId, int userId, int contactId) {
         this.appointmentId = appointmentId;
         this.title = title;

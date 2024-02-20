@@ -12,6 +12,12 @@ import java.util.ResourceBundle;
 
 import static java.time.ZoneOffset.UTC;
 
+/**
+ * This class contains methods that convert SQL Database appointments to the correct Java Object
+ *
+ * @author Nichoals Ryan
+ * @version 1.0
+ */
 public class SQLAppointmentToObject{
 
         static int appointmentId;
@@ -29,6 +35,11 @@ public class SQLAppointmentToObject{
         static int userId;
         static int contactId;
 
+    /**
+     * Converts SQL appointments to java appointment objects
+     *
+     * @throws SQLException
+     */
     public static void SQLAppointmentToObjectMethod() throws SQLException {
 
             ObservableListHelper.clearAppointments();

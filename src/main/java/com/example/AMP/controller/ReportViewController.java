@@ -21,6 +21,12 @@ import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+/**
+ * This class contains the various methods for, and manages the function of the Reports page of the application.
+ *
+ * @author Nicholas Ryan
+ * @version 1.0
+ */
 public class ReportViewController implements Initializable {
 
     @FXML private TableColumn<Appointment, Integer> appointmentContactIdCol;
@@ -48,7 +54,7 @@ public class ReportViewController implements Initializable {
     @FXML private TableView<Customer> customerTable;
 
     @FXML private RadioButton contactScheduleRadio;
-    @FXML private RadioButton customersCountryRadio;
+    @FXML private RadioButton customersLocationRadio;
     @FXML private RadioButton customersMonthRadio;
     @FXML private RadioButton customersTypeRadio;
     ToggleGroup customerRadio = new ToggleGroup();
@@ -71,10 +77,15 @@ public class ReportViewController implements Initializable {
             "September", "October", "November", "December"
     };
     private String[] customerLocation;
+
     public ReportViewController() throws SQLException {
     }
 
-
+    /**
+     * This method chances the appearance of the Reports page to reflect the relevant info for Contact Schedule
+     *
+     * @param event
+     */
     @FXML void contactScheduleToggle(ActionEvent event) {
         contactChoiceBox.setVisible(true);
         customerChoiceBox.setVisible(false);
@@ -84,7 +95,11 @@ public class ReportViewController implements Initializable {
         numberOfSelectionLabel.setText("0");
         totalOfLabel.setText("Total Appointments:");
     }
-    @FXML void customersCountryToggle(ActionEvent event) {
+    /**
+     * This method chances the appearance of the Reports page to reflect the relevant info for Location Schedule.
+     * @param event
+     */
+    @FXML void customersLocationToggle(ActionEvent event) {
         contactChoiceBox.setVisible(false);
         customerChoiceBox.setVisible(true);
         customerChoiceBox.getItems().clear();
@@ -93,6 +108,11 @@ public class ReportViewController implements Initializable {
         numberOfSelectionLabel.setText("0");
         totalOfLabel.setText("Total Appointments:");
     }
+    /**
+     * This method chances the appearance of the Reports page to reflect the relevant info for Appointment Month Schedule
+     *
+     * @param event
+     */
     @FXML void customersMonthToggle(ActionEvent event) {
         contactChoiceBox.setVisible(false);
         customerChoiceBox.setVisible(true);
@@ -103,6 +123,11 @@ public class ReportViewController implements Initializable {
         totalOfLabel.setText("Total Appointments:");
 
     }
+    /**
+     * This method chances the appearance of the Reports page to reflect the relevant info for Appointment Week Schedule
+     *
+     * @param event
+     */
     @FXML void customersTypeToggle(ActionEvent event) {
         contactChoiceBox.setVisible(false);
         customerChoiceBox.setVisible(true);
@@ -113,6 +138,11 @@ public class ReportViewController implements Initializable {
         totalOfLabel.setText("Total Appointments:");
     }
 
+    /**
+     * This method shows the correct information when the search button is clicked based on the selected radio button
+     *
+     * @param event
+     */
     @FXML void searchButtonClick(ActionEvent event) {
 
         if(contactScheduleRadio.isSelected()){
@@ -172,7 +202,7 @@ public class ReportViewController implements Initializable {
             appointmentTable.setVisible(true);
         }
 
-        if (customersCountryRadio.isSelected()){
+        if (customersLocationRadio.isSelected()){
 
             String location = customerChoiceBox.getValue();
 
@@ -193,6 +223,12 @@ public class ReportViewController implements Initializable {
         }
     }
 
+    /**
+     * This method is called when the Reports page is visited. It initializes many vital parts of the reports page.
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -217,7 +253,7 @@ public class ReportViewController implements Initializable {
         customerLocation = uniqueTypes2.toArray(new String[0]);
 
         contactScheduleRadio.setToggleGroup(customerRadio);
-        customersCountryRadio.setToggleGroup(customerRadio);
+        customersLocationRadio.setToggleGroup(customerRadio);
         customersTypeRadio.setToggleGroup(customerRadio);
         customersMonthRadio.setToggleGroup(customerRadio);
 

@@ -4,7 +4,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-
+/**
+ * This class manages the SQL Database Connection. It was already in place from the example project on the VM I am utilizing
+ *
+ * @author WGUTeam
+ * @version ?
+ */
 public abstract class JDBC {
 
     private static final String protocol = "jdbc";
@@ -20,11 +25,15 @@ public abstract class JDBC {
 
     public static String connectionStatus;
 
+    /**
+     * This method connects to the SQL Database
+     */
+
     public static void makeConnection() {
         try {
             Class.forName(driver); // Locate Driver
             connection = DriverManager.getConnection(jdbcUrl, userName, password); // reference Connection object
-            connectionStatus = "Database Connection successful!";
+            connectionStatus = LocaleDesignation.LocalLang.getString("dbConnection");
         }
         catch(ClassNotFoundException e) {
             System.out.println("Error:" + e.getMessage());
@@ -34,6 +43,9 @@ public abstract class JDBC {
         }
     }
 
+    /**
+     * This method closes the connection to the SQL database
+     */
     public static void closeConnection() {
         try {
             connection.close();
@@ -43,5 +55,4 @@ public abstract class JDBC {
             System.out.println(e.getMessage());
         }
     }
-
 }

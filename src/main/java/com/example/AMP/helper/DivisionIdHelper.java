@@ -1,7 +1,20 @@
 package com.example.AMP.helper;
 
+/**
+ *
+ * This class holds methods to convert the String of a Division to the Division_ID. ChatGPT was very helpful with this type of method, since it consisted mostly of mindless typing.
+ *
+ * @author Nicholas Ryan, ChatGPT
+ * @version 1.0
+ */
 public class DivisionIdHelper {
 
+    /**
+     * This method takes a division string and returns the Division_ID
+     *
+     * @param division
+     * @return
+     */
     public static int divisionIdRetriever(String division) {
 
         if (division.equals("Alabama")) {
@@ -144,6 +157,14 @@ public class DivisionIdHelper {
             return -1;
         }
     }
+
+    /**
+     *
+     * This method takes the Division_ID and returns the associated string
+     *
+     * @param divisionId
+     * @return
+     */
     public static String divisionStringRetriever(int divisionId) {
 
         switch (divisionId) {
@@ -287,7 +308,6 @@ public class DivisionIdHelper {
                 return "Invalid divisionId";
 
         }
-
     }
 }
 
