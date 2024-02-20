@@ -159,7 +159,7 @@ public class AddCustomerViewController implements Initializable {
         //Moving the User back to the Main Scene
         Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
         Stage stage = (Stage) addCustomerFormTitleLabel.getScene().getWindow();
-        Scene scene = new Scene(root, 720, 400);
+        Scene scene = new Scene(root, 790, 400);
         stage.setTitle("Appointment Management Program (AMP)");
         stage.setScene(scene);
         stage.show();

@@ -1,5 +1,6 @@
 package com.example.AMP.controller;
 
+import com.example.AMP.MainApplication;
 import com.example.AMP.helper.DescendingSequenceHelper;
 import com.example.AMP.helper.LocaleDesignation;
 import com.example.AMP.helper.ObservableListHelper;
@@ -7,12 +8,17 @@ import com.example.AMP.models.Appointment;
 import com.example.AMP.models.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -62,8 +68,10 @@ public class ReportViewController implements Initializable {
     @FXML private Label currentSelectionLabel;
     @FXML private Label numberOfSelectionLabel;
     @FXML private Label totalOfLabel;
+    @FXML private Label reportsTitle;
 
     @FXML private Button searchButton;
+    @FXML private Button backButton;
 
     @FXML private ChoiceBox<Integer> contactChoiceBox = new ChoiceBox<>();
     @FXML private ChoiceBox<String> customerChoiceBox = new ChoiceBox<>();
@@ -91,9 +99,9 @@ public class ReportViewController implements Initializable {
         customerChoiceBox.setVisible(false);
         contactChoiceBox.getItems().clear();
         contactChoiceBox.getItems().addAll(contactIdChoiceBoxValues);
-        currentSelectionLabel.setText("Contact ID:");
+        currentSelectionLabel.setText(LocaleDesignation.LocalLang.getString("contactID"));
         numberOfSelectionLabel.setText("0");
-        totalOfLabel.setText("Total Appointments:");
+        totalOfLabel.setText(LocaleDesignation.LocalLang.getString("totalApts"));
     }
     /**
      * This method chances the appearance of the Reports page to reflect the relevant info for Location Schedule.
@@ -104,9 +112,9 @@ public class ReportViewController implements Initializable {
         customerChoiceBox.setVisible(true);
         customerChoiceBox.getItems().clear();
         customerChoiceBox.getItems().addAll(customerLocation);
-        currentSelectionLabel.setText("Appointment Location:");
+        currentSelectionLabel.setText(LocaleDesignation.LocalLang.getString("aptLocation"));
         numberOfSelectionLabel.setText("0");
-        totalOfLabel.setText("Total Appointments:");
+        totalOfLabel.setText(LocaleDesignation.LocalLang.getString("totalApts"));
     }
     /**
      * This method chances the appearance of the Reports page to reflect the relevant info for Appointment Month Schedule
@@ -118,9 +126,9 @@ public class ReportViewController implements Initializable {
         customerChoiceBox.setVisible(true);
         customerChoiceBox.getItems().clear();
         customerChoiceBox.getItems().addAll(customerMonth);
-        currentSelectionLabel.setText("Appointment Month:");
+        currentSelectionLabel.setText(LocaleDesignation.LocalLang.getString("aptMonth"));
         numberOfSelectionLabel.setText("0");
-        totalOfLabel.setText("Total Appointments:");
+        totalOfLabel.setText(LocaleDesignation.LocalLang.getString("totalApts"));
 
     }
     /**
@@ -133,9 +141,9 @@ public class ReportViewController implements Initializable {
         customerChoiceBox.setVisible(true);
         customerChoiceBox.getItems().clear();
         customerChoiceBox.getItems().addAll(customerType);
-        currentSelectionLabel.setText("Appointment Type:");
+        currentSelectionLabel.setText(LocaleDesignation.LocalLang.getString("aptType"));
         numberOfSelectionLabel.setText("0");
-        totalOfLabel.setText("Total Appointments:");
+        totalOfLabel.setText(LocaleDesignation.LocalLang.getString("totalApts"));
     }
 
     /**
@@ -224,6 +232,24 @@ public class ReportViewController implements Initializable {
     }
 
     /**
+     * Moves the user back to the main view
+     *
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    void backButtonClick(ActionEvent event) throws IOException {
+
+        Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        Scene scene = new Scene(root, 790, 400);
+        stage.setTitle("Appointment Management Program (AMP)");
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    /**
      * This method is called when the Reports page is visited. It initializes many vital parts of the reports page.
      *
      * @param url
@@ -299,6 +325,14 @@ public class ReportViewController implements Initializable {
         customerLastUpdatedCol.setText(LocaleDesignation.LocalLang.getString("cLastUpdateDateText"));
         customerLastUpdatedByCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("lastUpdatedBy"));
         customerLastUpdatedByCol.setText(LocaleDesignation.LocalLang.getString("cUpdatedByText"));
+
+        contactScheduleRadio.setText(LocaleDesignation.LocalLang.getString("contactRadio"));
+        customersTypeRadio.setText(LocaleDesignation.LocalLang.getString("typeRadio"));
+        customersLocationRadio.setText(LocaleDesignation.LocalLang.getString("locationRadio"));
+        customersMonthRadio.setText(LocaleDesignation.LocalLang.getString("monthRadio"));
+        searchButton.setText(LocaleDesignation.LocalLang.getString("searchBtn"));
+        reportsTitle.setText(LocaleDesignation.LocalLang.getString("reportsTitle"));
+        backButton.setText(LocaleDesignation.LocalLang.getString("backBtn"));
 
         contactScheduleRadio.fire();
 

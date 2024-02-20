@@ -39,7 +39,7 @@
             <TableColumn fx:id="appointmentUserIdCol" prefWidth="70.0" text="User" />
          </columns>
       </TableView>
-      <Label layoutX="34.0" layoutY="20.0" text="Reports View">
+      <Label fx:id="reportsTitle" layoutX="34.0" layoutY="20.0" text="Reports View">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font></Label>
@@ -53,5 +53,6 @@
       <Label fx:id="numberOfSelectionLabel" layoutX="661.0" layoutY="58.0" text="customer Number" />
       <Label fx:id="currentSelectionLabel" layoutX="178.0" layoutY="58.0" text="Select Current Label" />
       <ChoiceBox fx:id="customerChoiceBox" layoutX="306.0" layoutY="54.0" prefWidth="150.0" />
+      <Button fx:id="backButton" layoutX="684.0" layoutY="351.0" mnemonicParsing="false" onAction="#backButtonClick" text="Back" />
    </children>
 </AnchorPane>
