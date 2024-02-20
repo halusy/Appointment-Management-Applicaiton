@@ -185,7 +185,7 @@ public class MainScheduleViewController implements Initializable {
 
         Parent root = FXMLLoader.load(MainApplication.class.getResource("report-view.fxml"));
         Stage stage = (Stage) viewCustomersRadio.getScene().getWindow();
-        Scene scene = new Scene(root, 720, 400);
+        Scene scene = new Scene(root, 790, 400);
         stage.setTitle("Appointment Management Program (AMP)");
         stage.setScene(scene);
         stage.show();

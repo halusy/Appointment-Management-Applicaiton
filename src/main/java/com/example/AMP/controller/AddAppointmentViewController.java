@@ -153,6 +153,7 @@ public class AddAppointmentViewController implements Initializable {
                 stage.setTitle("Appointment Management Program (AMP)");
                 stage.setScene(scene);
                 stage.show();
+
             } else {
 
                 AlertHelper.warning("warning", "warning");

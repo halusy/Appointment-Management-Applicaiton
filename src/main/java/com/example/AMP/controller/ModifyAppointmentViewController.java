@@ -96,50 +96,65 @@ public class ModifyAppointmentViewController implements Initializable {
         LocalDateTime updatedStart = originalStart.withYear(newStartDate.getYear()).withMonth(newStartDate.getMonthValue()).withDayOfMonth(newStartDate.getDayOfMonth()).withHour(startTimeHourSpinner.getValue()).withMinute(startTimeMinuteSpinner.getValue());
         LocalDateTime updatedEnd = originalEnd.withYear(newEndDate.getYear()).withMonth(newEndDate.getMonthValue()).withDayOfMonth(newEndDate.getDayOfMonth()).withHour(endTimeHourSpinner.getValue()).withMinute(endTimeMinuteSpinner.getValue());
 
+        Timestamp utcStart = ZoneIdHelper.timeConverterUtc(Timestamp.valueOf(updatedStart));
+        Timestamp utcEnd = ZoneIdHelper.timeConverterUtc(Timestamp.valueOf(updatedEnd));
+
         String title = appointmentTitleTextField.getText();
         String description = appointmentDescriptionTextField.getText();
         String location = appointmentLocationTextField.getText();
         String type = appointmentTypeTextField.getText();
-        Timestamp start = Timestamp.valueOf(updatedStart);
-        Timestamp end = Timestamp.valueOf(updatedEnd);
+        Timestamp start = utcStart;
+        Timestamp end = utcEnd;
         Timestamp lastUpdated = Timestamp.from(Instant.now());
         String updatedBy = LoginVerification.getCurrentUser();
         Integer customerId = customerIdChoiceBox.getValue();
         Integer userId = LoginVerification.getCurrentUserId();
         Integer contactId = contactIdChoiceBox.getValue();
 
-        Timestamp utcStart = ZoneIdHelper.timeConverterUtc(start);
-        Timestamp utcEnd = ZoneIdHelper.timeConverterUtc(end);
 
-        String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, " +
-                "Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setString(1, title);
-        ps.setString(2, description);
-        ps.setString(3, location);
-        ps.setString(4, type);
-        ps.setTimestamp(5, utcStart);
-        ps.setTimestamp(6, utcEnd);
-        ps.setTimestamp(7, lastUpdated);
-        ps.setString(8, updatedBy);
-        ps.setInt(9, customerId);
-        ps.setInt(10, userId);
-        ps.setInt(11, contactId);
-        ps.setInt(12, currentAppointment.getAppointmentId());
 
-        int Results = ps.executeUpdate();
+        if(OverlapChecker.isWithinBusinessHours(start, end)) {
 
-        System.out.println(Results);
+            if (OverlapChecker.customerOverlapChecker(customerId, start, end)) {
 
-        SQLAppointmentToObject.SQLAppointmentToObjectMethod();
+                String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, " +
+                        "Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
+                PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+                ps.setString(1, title);
+                ps.setString(2, description);
+                ps.setString(3, location);
+                ps.setString(4, type);
+                ps.setTimestamp(5, utcStart);
+                ps.setTimestamp(6, utcEnd);
+                ps.setTimestamp(7, lastUpdated);
+                ps.setString(8, updatedBy);
+                ps.setInt(9, customerId);
+                ps.setInt(10, userId);
+                ps.setInt(11, contactId);
+                ps.setInt(12, currentAppointment.getAppointmentId());
 
-        Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
-        Stage stage = (Stage) modifyAppointmentFormTitleLabel.getScene().getWindow();
-        Scene scene = new Scene(root, 720, 400);
-        stage.setTitle("Appointment Management Program (AMP)");
-        stage.setScene(scene);
-        stage.show();
+                int Results = ps.executeUpdate();
 
+                System.out.println(Results);
+
+                SQLAppointmentToObject.SQLAppointmentToObjectMethod();
+
+                Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
+                Stage stage = (Stage) modifyAppointmentFormTitleLabel.getScene().getWindow();
+                Scene scene = new Scene(root, 720, 400);
+                stage.setTitle("Appointment Management Program (AMP)");
+                stage.setScene(scene);
+                stage.show();
+            } else {
+
+                AlertHelper.warning("warning", "warning");
+
+            }
+        } else {
+
+            AlertHelper.warning("warning", "warning");
+
+        }
     }
 
     @FXML void onCancelButtonClick(ActionEvent event) throws IOException {
