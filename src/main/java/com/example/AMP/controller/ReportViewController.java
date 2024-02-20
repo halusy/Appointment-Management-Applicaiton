@@ -336,6 +336,8 @@ public class ReportViewController implements Initializable {
 
         contactScheduleRadio.fire();
 
+
+
         customerTable.setVisible(false);
         appointmentTable.setVisible(false);
 

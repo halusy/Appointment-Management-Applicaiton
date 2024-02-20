@@ -13,7 +13,7 @@
    <Label fx:id="customerNameLabel" layoutX="23.0" layoutY="109.0" text="Customer Name:" />
    <Label fx:id="customerAddressLabel" layoutX="44.0" layoutY="150.0" text="Address:" />
    <Label fx:id="customerPostalCodeLabel" layoutX="34.0" layoutY="195.0" text="Postal Code:" />
-   <Label fx:id="customerPhoneNumberLabel" layoutX="26.0" layoutY="236.0" text="Phone Number:" />
+   <Label fx:id="customerPhoneNumberLabel" layoutX="14.0" layoutY="236.0" text="Phone Number:" />
    <Label fx:id="customerCountryLabel" layoutX="45.0" layoutY="276.0" text="Country:" />
    <Label fx:id="customerDivisionLabel" layoutX="45.0" layoutY="316.0" text="Division:" />
    <Label fx:id="addCustomerFormTitleLabel" alignment="CENTER" layoutX="84.0" layoutY="24.0" text="Add Customer Form">

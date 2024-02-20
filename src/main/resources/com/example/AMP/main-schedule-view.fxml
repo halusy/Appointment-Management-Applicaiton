@@ -44,8 +44,8 @@
       <Button fx:id="reportsButton" layoutX="35.0" layoutY="342.0" mnemonicParsing="false" onAction="#onReportsButtonClick" text="Reports" />
       <Button fx:id="LogoutButton" layoutX="637.0" layoutY="342.0" mnemonicParsing="false" onAction="#onLogoutButtonClick" text="Logout" />
       <RadioButton fx:id="viewCustomersRadio" layoutX="83.0" layoutY="51.0" mnemonicParsing="false" onAction="#viewCustomersRadioToggle" text="View Customers" />
-      <RadioButton fx:id="sortAppointmentsAllRadio" layoutX="520.0" layoutY="59.0" mnemonicParsing="false" onAction="#sortAppointmentsAllRadioToggle" text="All" />
-      <RadioButton fx:id="sortAppointmentsMonthRadio" layoutX="624.0" layoutY="59.0" mnemonicParsing="false" onAction="#sortAppointmentsMonthRadioToggle" text="Month" />
+      <RadioButton fx:id="sortAppointmentsAllRadio" layoutX="502.0" layoutY="59.0" mnemonicParsing="false" onAction="#sortAppointmentsAllRadioToggle" text="All" />
+      <RadioButton fx:id="sortAppointmentsMonthRadio" layoutX="650.0" layoutY="59.0" mnemonicParsing="false" onAction="#sortAppointmentsMonthRadioToggle" text="Month" />
       <RadioButton fx:id="sortAppointmentsWeekRadio" layoutX="566.0" layoutY="59.0" mnemonicParsing="false" onAction="#sortAppointmentsWeekRadioToggle" text="Week" />
       <Label fx:id="sortAppointmentsByLabel" layoutX="538.0" layoutY="36.0" text="Sort Appointments By:" />
       <Label fx:id="titleLabel" layoutX="242.0" layoutY="35.0" text="Appointment Management Program">

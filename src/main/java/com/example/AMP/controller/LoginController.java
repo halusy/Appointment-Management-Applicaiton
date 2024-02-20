@@ -116,7 +116,7 @@ public class LoginController implements Initializable {
             System.out.println("Login Successful");
             Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
             Stage stage = (Stage) PasswordField.getScene().getWindow();
-            Scene scene = new Scene(root, 720, 400);
+            Scene scene = new Scene(root, 770, 400);
             stage.setTitle("Appointment Management Program (AMP)");
             stage.setScene(scene);
             stage.show();

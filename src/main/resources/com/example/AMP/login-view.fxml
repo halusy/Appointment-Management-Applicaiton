@@ -19,7 +19,7 @@
         <Label fx:id="DatabaseStatusLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="42.0" layoutY="254.0" prefHeight="17.0" prefWidth="269.0" text="Database Status" />
         <Label fx:id="PasswordLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="104.0" layoutY="164.0" prefHeight="17.0" prefWidth="145.0" text="Password" />
         <Button fx:id="LoginButton" alignment="CENTER" contentDisplay="CENTER" layoutX="116.0" layoutY="281.0" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="25.0" prefWidth="121.0" text="Login" textAlignment="CENTER" />
-        <Label fx:id="LocationLabel" layoutX="95.0" layoutY="226.0" text="Location:" textFill="RED" />
+        <Label fx:id="LocationLabel" layoutX="74.0" layoutY="226.0" text="Location:" textFill="RED" />
         <Label fx:id="LocationDataLabel" layoutX="157.0" layoutY="226.0" text="Location Data Here" />
         <TextField fx:id="UsernameField" layoutX="104.0" layoutY="130.0" prefHeight="25.0" prefWidth="145.0" />
         <TextField fx:id="PasswordField" layoutX="104.0" layoutY="189.0" prefHeight="25.0" prefWidth="145.0" />

@@ -18,11 +18,11 @@
       <Label fx:id="appointmentTypeLabel" layoutX="67.0" layoutY="215.0" text="Type:" />
       <Label fx:id="appointmentContactIdLabel" layoutX="53.0" layoutY="249.0" text="Contact ID:" />
       <Label fx:id="appointmentCustomerIdLabel" layoutX="48.0" layoutY="283.0" text="Customer ID:" />
-      <Label fx:id="appointmentUserIdLabel" layoutX="61.0" layoutY="317.0" text="User ID:" />
+      <Label fx:id="appointmentUserIdLabel" layoutX="46.0" layoutY="317.0" text="User ID:" />
       <Label fx:id="appointmentStartDateLabel" layoutX="52.0" layoutY="359.0" text="Start Date:" />
       <Label fx:id="appointmentStartTimeLabel" layoutX="53.0" layoutY="395.0" text="Start Time:" />
-      <Label fx:id="appointmentEndDateLabel" layoutX="338.0" layoutY="359.0" text="End Date:" />
-      <Label fx:id="appointmentEndTimeLabel" layoutX="337.0" layoutY="395.0" text="End Time:" />
+      <Label fx:id="appointmentEndDateLabel" layoutX="301.0" layoutY="359.0" text="End Date:" />
+      <Label fx:id="appointmentEndTimeLabel" layoutX="301.0" layoutY="395.0" text="End Time:" />
       <Button fx:id="appointmentAddFormSaveButton" layoutX="109.0" layoutY="438.0" mnemonicParsing="false" onAction="#onAppointmentAddFormSaveButtonClick" prefHeight="25.0" prefWidth="135.0" text="Save" />
       <Button fx:id="cancelButton" layoutX="373.0" layoutY="438.0" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="25.0" prefWidth="135.0" text="Cancel" />
       <Label fx:id="addAppointmentFormTitleLabel" layoutX="212.0" layoutY="20.0" text="Add Appointment Form">
