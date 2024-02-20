@@ -8,41 +8,41 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="731.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.AMP.controller.MainScheduleViewController">
+<AnchorPane prefHeight="400.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.AMP.controller.MainScheduleViewController">
    <children>
-      <TableView fx:id="customerTable" layoutX="12.0" layoutY="85.0" prefHeight="248.0" prefWidth="709.0">
+      <TableView fx:id="customerTable" layoutX="12.0" layoutY="85.0" prefHeight="248.0" prefWidth="747.0">
         <columns>
           <TableColumn fx:id="customerIdCol" prefWidth="28.0" text="ID" />
           <TableColumn fx:id="customerNameCol" prefWidth="75.0" text="Name" />
             <TableColumn fx:id="customerAddressCol" prefWidth="75.0" text="Address" />
             <TableColumn fx:id="customerPostalCodeCol" prefWidth="75.0" text="Postal Code" />
-            <TableColumn fx:id="customerDivisionIdCol" prefWidth="75.0" text="Division ID" />
-            <TableColumn fx:id="customerPhoneCol" prefWidth="75.0" text="Phone" />
-            <TableColumn fx:id="customerCreateDateCol" prefWidth="75.0" text="Date Added" />
-            <TableColumn fx:id="customerCreatedByCol" prefWidth="75.0" text="Creator" />
-            <TableColumn fx:id="customerLastUpdatedCol" prefWidth="75.0" text="Last Updated" />
-            <TableColumn fx:id="customerLastUpdatedByCol" text="Updated By" />
+            <TableColumn fx:id="customerDivisionIdCol" prefWidth="71.0" text="Division ID" />
+            <TableColumn fx:id="customerPhoneCol" prefWidth="70.0" text="Phone" />
+            <TableColumn fx:id="customerCreateDateCol" prefWidth="101.0" text="Date Added" />
+            <TableColumn fx:id="customerCreatedByCol" prefWidth="58.0" text="Creator" />
+            <TableColumn fx:id="customerLastUpdatedCol" prefWidth="117.0" text="Last Updated" />
+            <TableColumn fx:id="customerLastUpdatedByCol" prefWidth="76.0" text="Updated By" />
         </columns>
       </TableView>
-      <TableView fx:id="appointmentTable" layoutX="12.0" layoutY="125.0" prefHeight="207.0" prefWidth="709.0">
+      <TableView fx:id="appointmentTable" layoutX="12.0" layoutY="125.0" prefHeight="207.0" prefWidth="747.0">
         <columns>
           <TableColumn fx:id="appointmentIdCol" prefWidth="24.0" text="ID" />
-          <TableColumn fx:id="appointmentTitleCol" prefWidth="87.0" text="Title" />
-            <TableColumn fx:id="appointmentDescriptionCol" prefWidth="74.0" text="Description" />
-            <TableColumn fx:id="appointmentLocationCol" prefWidth="69.0" text="Location" />
-            <TableColumn fx:id="appointmentContactIdCol" prefWidth="64.0" text="Contact" />
-            <TableColumn fx:id="appointmentTypeCol" prefWidth="65.0" text="Type" />
-            <TableColumn fx:id="appointmentStartCol" prefWidth="85.0" text="Start" />
-            <TableColumn fx:id="appointmentEndCol" minWidth="0.0" prefWidth="90.0" text="End" />
-            <TableColumn fx:id="appointmentCustomerIdCol" text="Customer" />
-            <TableColumn fx:id="appointmentUserIdCol" prefWidth="70.0" text="User" />
+          <TableColumn fx:id="appointmentTitleCol" prefWidth="82.0" text="Title" />
+            <TableColumn fx:id="appointmentDescriptionCol" prefWidth="87.0" text="Description" />
+            <TableColumn fx:id="appointmentLocationCol" prefWidth="76.0" text="Location" />
+            <TableColumn fx:id="appointmentContactIdCol" prefWidth="52.0" text="Contact" />
+            <TableColumn fx:id="appointmentTypeCol" prefWidth="62.0" text="Type" />
+            <TableColumn fx:id="appointmentStartCol" prefWidth="132.0" text="Start" />
+            <TableColumn fx:id="appointmentEndCol" minWidth="0.0" prefWidth="124.0" text="End" />
+            <TableColumn fx:id="appointmentCustomerIdCol" prefWidth="62.0" text="Customer" />
+            <TableColumn fx:id="appointmentUserIdCol" prefWidth="45.0" text="User" />
         </columns>
       </TableView>
-      <Button fx:id="addButton" layoutX="145.0" layoutY="342.0" mnemonicParsing="false" onAction="#onAddButtonClick" text="Add" />
-      <Button fx:id="modifyButton" layoutX="302.0" layoutY="342.0" mnemonicParsing="false" onAction="#onModifyButtonClick" text="Modify" />
-      <Button fx:id="deleteButton" layoutX="476.0" layoutY="342.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" text="Delete" />
+      <Button fx:id="addButton" layoutX="177.0" layoutY="342.0" mnemonicParsing="false" onAction="#onAddButtonClick" text="Add" />
+      <Button fx:id="modifyButton" layoutX="316.0" layoutY="342.0" mnemonicParsing="false" onAction="#onModifyButtonClick" text="Modify" />
+      <Button fx:id="deleteButton" layoutX="502.0" layoutY="342.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" text="Delete" />
       <Button fx:id="reportsButton" layoutX="35.0" layoutY="342.0" mnemonicParsing="false" onAction="#onReportsButtonClick" text="Reports" />
-      <Button fx:id="LogoutButton" layoutX="637.0" layoutY="342.0" mnemonicParsing="false" onAction="#onLogoutButtonClick" text="Logout" />
+      <Button fx:id="LogoutButton" layoutX="666.0" layoutY="342.0" mnemonicParsing="false" onAction="#onLogoutButtonClick" text="Logout" />
       <RadioButton fx:id="viewCustomersRadio" layoutX="83.0" layoutY="51.0" mnemonicParsing="false" onAction="#viewCustomersRadioToggle" text="View Customers" />
       <RadioButton fx:id="sortAppointmentsAllRadio" layoutX="502.0" layoutY="59.0" mnemonicParsing="false" onAction="#sortAppointmentsAllRadioToggle" text="All" />
       <RadioButton fx:id="sortAppointmentsMonthRadio" layoutX="650.0" layoutY="59.0" mnemonicParsing="false" onAction="#sortAppointmentsMonthRadioToggle" text="Month" />

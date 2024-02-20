@@ -22,7 +22,6 @@ public class Customer {
     private String lastUpdatedBy;
     private int divisionId;
 
-    public static int customerCounter;
 
     /**
      * This method creates a new customer object.
@@ -50,21 +49,8 @@ public class Customer {
         this.lastUpdatedBy = lastUpdatedBy;
         this.divisionId = divisionId;
 
-        customerCounter++;
-
     }
 
-    public static int customerIdGenerator(){
-
-        return customerCounter + 1;
-
-    }
-
-    public static void resetCustomerCounter(){
-
-        customerCounter = 0;
-
-    }
 
     public int getCustomerId() {
         return customerId;

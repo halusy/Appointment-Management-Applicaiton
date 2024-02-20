@@ -23,7 +23,6 @@ public class Appointment {
     private int userId;
     private int contactId;
 
-    public static int appointmentCounter;
 
     /**
      * This method creates a new appointment object
@@ -59,19 +58,7 @@ public class Appointment {
         this.userId = userId;
         this.contactId = contactId;
 
-        appointmentCounter++;
 
-    }
-
-    public static int appointmentIdGenerator(){
-
-        return appointmentCounter + 1;
-
-    }
-
-    public static void resetAppointmentCounter(){
-
-        appointmentCounter = 0;
 
     }
 

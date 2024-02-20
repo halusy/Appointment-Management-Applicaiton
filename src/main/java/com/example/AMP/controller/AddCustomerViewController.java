@@ -18,11 +18,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.sql.*;
 
 /**
  * This is the AddCustomerViewController Class. It contains various methods to facilitate the adding of new Customers to the SQL Database.
@@ -110,7 +109,7 @@ public class AddCustomerViewController implements Initializable {
     @FXML void onCancelButtonClick(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
         Stage stage = (Stage) addCustomerFormTitleLabel.getScene().getWindow();
-        Scene scene = new Scene(root, 720, 400);
+        Scene scene = new Scene(root, 770, 400);
         stage.setTitle("Appointment Management Program (AMP)");
         stage.setScene(scene);
         stage.show();
@@ -125,8 +124,9 @@ public class AddCustomerViewController implements Initializable {
      */
     @FXML void onCustomerAddFormSaveButtonClick(ActionEvent event) throws SQLException, IOException {
 
+
         //Prepping variables to be pushed into the SQL Database
-        int customerId = Customer.customerIdGenerator();
+        int customerId = Integer.valueOf(customerIdTextField.getText());
         String name = customerNameTextField.getText();
         String address = customerAddressTextField.getText();
         String postalCode = customerPostalCodeTextField.getText();
@@ -159,7 +159,7 @@ public class AddCustomerViewController implements Initializable {
         //Moving the User back to the Main Scene
         Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
         Stage stage = (Stage) addCustomerFormTitleLabel.getScene().getWindow();
-        Scene scene = new Scene(root, 790, 400);
+        Scene scene = new Scene(root, 770, 400);
         stage.setTitle("Appointment Management Program (AMP)");
         stage.setScene(scene);
         stage.show();
@@ -167,6 +167,11 @@ public class AddCustomerViewController implements Initializable {
 
     /**
      * This is the Initialize method, which will execute when the Add Customer Scene is opened. It will initialize many important pieces of the Add Customer Scene.
+     *
+     * LAMBDA EXPRESSION 2: Here is where I also use my second Lambda expression. Much like the Appointment ID Generator, I had a bad Customer ID generator built into the Appointment Class which caused errors.
+     * Using a Lambda in this scenario was perfect since the logic needed for the Customer ID Generator method was simple enough to not warrant an entire class, which is why I chose this
+     * use case for implementation.
+     *
      *
      * @param url
      * @param resourceBundle
@@ -193,8 +198,20 @@ public class AddCustomerViewController implements Initializable {
         customerDivisionChoiceBox.setDisable(true);
 
         //Setting CustomerID text and Disabling the Field
+        //Implementing a Lambda Expression for the Customer ID
+
+        CustomerIDGenerator customerIDGenerator = (o) -> {
+            ArrayList<Integer> customerIds = new ArrayList<>();
+            for (Customer currentCustomer : o) {
+                customerIds.add(currentCustomer.getCustomerId());
+            }
+            return LowestAvalibleNumberHelper.lowestNumberFinder(customerIds);
+        };
+
+        int newID = customerIDGenerator.idGeneratorMethod(ObservableListHelper.getCustomers());
+
         customerIdTextField.setDisable(true);
-        customerIdTextField.setText(String.valueOf(Customer.customerIdGenerator()));
+        customerIdTextField.setText(String.valueOf(newID));
 
         //Telling the program that the previous scene was a Customer scene
         PreviousSceneHelper.PsSetterTrue();

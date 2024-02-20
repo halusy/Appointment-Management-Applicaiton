@@ -112,57 +112,64 @@ public class ModifyAppointmentViewController implements Initializable {
         Timestamp utcStart = ZoneIdHelper.timeConverterUtc(Timestamp.valueOf(updatedStart));
         Timestamp utcEnd = ZoneIdHelper.timeConverterUtc(Timestamp.valueOf(updatedEnd));
 
-        //Prepping variable for the SQL Update
-        String title = appointmentTitleTextField.getText();
-        String description = appointmentDescriptionTextField.getText();
-        String location = appointmentLocationTextField.getText();
-        String type = appointmentTypeTextField.getText();
-        Timestamp start = utcStart;
-        Timestamp end = utcEnd;
-        Timestamp lastUpdated = Timestamp.from(Instant.now());
-        String updatedBy = LoginVerification.getCurrentUser();
-        Integer customerId = customerIdChoiceBox.getValue();
-        Integer userId = LoginVerification.getCurrentUserId();
-        Integer contactId = contactIdChoiceBox.getValue();
+        try {
 
-        //SQL Database Commit w/ Contingency Checkers
-        if(OverlapChecker.isWithinBusinessHours(start, end)) {
+            //Prepping variable for the SQL Update
+            String title = appointmentTitleTextField.getText();
+            String description = appointmentDescriptionTextField.getText();
+            String location = appointmentLocationTextField.getText();
+            String type = appointmentTypeTextField.getText();
+            Timestamp start = utcStart;
+            Timestamp end = utcEnd;
+            Timestamp lastUpdated = Timestamp.from(Instant.now());
+            String updatedBy = LoginVerification.getCurrentUser();
+            Integer customerId = customerIdChoiceBox.getValue();
+            Integer userId = LoginVerification.getCurrentUserId();
+            Integer contactId = contactIdChoiceBox.getValue();
 
-            if (OverlapChecker.customerOverlapChecker(customerId, start, end)) {
+            //SQL Database Commit w/ Contingency Checkers
+            if (OverlapChecker.isWithinBusinessHours(start, end)) {
 
-                //SQL Commit Statements
-                String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, " +
-                        "Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
-                PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-                ps.setString(1, title);
-                ps.setString(2, description);
-                ps.setString(3, location);
-                ps.setString(4, type);
-                ps.setTimestamp(5, utcStart);
-                ps.setTimestamp(6, utcEnd);
-                ps.setTimestamp(7, lastUpdated);
-                ps.setString(8, updatedBy);
-                ps.setInt(9, customerId);
-                ps.setInt(10, userId);
-                ps.setInt(11, contactId);
-                ps.setInt(12, currentAppointment.getAppointmentId());
-                int Results = ps.executeUpdate();
+                if (OverlapChecker.customerOverlapChecker(customerId, start, end)) {
 
-                //Refreshes appointment objects from updated Database
-                SQLAppointmentToObject.SQLAppointmentToObjectMethod();
+                    //SQL Commit Statements
+                    String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, " +
+                            "Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
+                    PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+                    ps.setString(1, title);
+                    ps.setString(2, description);
+                    ps.setString(3, location);
+                    ps.setString(4, type);
+                    ps.setTimestamp(5, utcStart);
+                    ps.setTimestamp(6, utcEnd);
+                    ps.setTimestamp(7, lastUpdated);
+                    ps.setString(8, updatedBy);
+                    ps.setInt(9, customerId);
+                    ps.setInt(10, userId);
+                    ps.setInt(11, contactId);
+                    ps.setInt(12, currentAppointment.getAppointmentId());
+                    int Results = ps.executeUpdate();
 
-                //Moves user back to main scene
-                Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
-                Stage stage = (Stage) modifyAppointmentFormTitleLabel.getScene().getWindow();
-                Scene scene = new Scene(root, 720, 400);
-                stage.setTitle("Appointment Management Program (AMP)");
-                stage.setScene(scene);
-                stage.show();
+                    //Refreshes appointment objects from updated Database
+                    SQLAppointmentToObject.SQLAppointmentToObjectMethod();
+
+                    //Moves user back to main scene
+                    Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
+                    Stage stage = (Stage) modifyAppointmentFormTitleLabel.getScene().getWindow();
+                    Scene scene = new Scene(root, 770, 400);
+                    stage.setTitle("Appointment Management Program (AMP)");
+                    stage.setScene(scene);
+                    stage.show();
+                } else {
+                    AlertHelper.warning(LocaleDesignation.LocalLang.getString("overlappingTitle"), LocaleDesignation.LocalLang.getString("overlappingContent"));
+                }
             } else {
-                AlertHelper.warning(LocaleDesignation.LocalLang.getString("overlappingTitle"), LocaleDesignation.LocalLang.getString("overlappingContent"));
+                AlertHelper.warning(LocaleDesignation.LocalLang.getString("outsideHoursTitle"), LocaleDesignation.LocalLang.getString("outsideHoursContent"));
             }
-        } else {
-            AlertHelper.warning(LocaleDesignation.LocalLang.getString("outsideHoursTitle"), LocaleDesignation.LocalLang.getString("outsideHoursContent"));
+        } catch (IOException e){
+
+            AlertHelper.warning(LocaleDesignation.LocalLang.getString("appointmentCommitTitle"), LocaleDesignation.LocalLang.getString("appointmentCommitContent"));
+
         }
     }
 
@@ -178,7 +185,7 @@ public class ModifyAppointmentViewController implements Initializable {
         //Moves user to main view
         Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
         Stage stage = (Stage) modifyAppointmentFormTitleLabel.getScene().getWindow();
-        Scene scene = new Scene(root, 720, 400);
+        Scene scene = new Scene(root, 770, 400);
         stage.setTitle("Appointment Management Program (AMP)");
         stage.setScene(scene);
         stage.show();

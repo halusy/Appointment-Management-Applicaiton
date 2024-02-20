@@ -112,7 +112,7 @@ public class ModifyCustomerViewController implements Initializable {
             //Moves user to main view
             Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
             Stage stage = (Stage) modifyCustomerFormTitleLabel.getScene().getWindow();
-            Scene scene = new Scene(root, 720, 400);
+            Scene scene = new Scene(root, 770, 400);
             stage.setTitle("Appointment Management Program (AMP)");
             stage.setScene(scene);
             stage.show();
@@ -163,7 +163,7 @@ public class ModifyCustomerViewController implements Initializable {
         //Moves user back to main view
         Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
         Stage stage = (Stage) modifyCustomerFormTitleLabel.getScene().getWindow();
-        Scene scene = new Scene(root, 720, 400);
+        Scene scene = new Scene(root, 770, 400);
         stage.setTitle("Appointment Management Program (AMP)");
         stage.setScene(scene);
         stage.show();

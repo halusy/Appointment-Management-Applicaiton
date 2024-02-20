@@ -33,7 +33,6 @@ public class SQLCustomerToObject {
     public static void SQLCustomerToObjectMethod() throws SQLException {
 
         ObservableListHelper.clearCustomers();
-        Customer.resetCustomerCounter();
 
         String sql = "SELECT * FROM CUSTOMERS";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);

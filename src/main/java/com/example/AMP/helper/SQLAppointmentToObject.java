@@ -43,7 +43,6 @@ public class SQLAppointmentToObject{
     public static void SQLAppointmentToObjectMethod() throws SQLException {
 
             ObservableListHelper.clearAppointments();
-            Appointment.resetAppointmentCounter();
 
             String sql = "SELECT * FROM APPOINTMENTS";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);

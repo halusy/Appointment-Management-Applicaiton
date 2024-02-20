@@ -15,9 +15,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.*;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -122,7 +122,7 @@ public class AddAppointmentViewController implements Initializable {
         Timestamp utcEnd = ZoneIdHelper.timeConverterUtc(Timestamp.valueOf(newEnd));
 
         //SQL Data Preparation
-        int appointmentId = Appointment.appointmentIdGenerator();
+        int appointmentId = Integer.valueOf(appointmentIdTextField.getText());
         String title = appointmentTitleTextField.getText();
         String description = appointmentDescriptionTextField.getText();
         String location = appointmentLocationTextField.getText();
@@ -168,7 +168,7 @@ public class AddAppointmentViewController implements Initializable {
                 //Moving back to Main Scene
                 Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
                 Stage stage = (Stage) addAppointmentFormTitleLabel.getScene().getWindow();
-                Scene scene = new Scene(root, 720, 400);
+                Scene scene = new Scene(root, 770, 400);
                 stage.setTitle("Appointment Management Program (AMP)");
                 stage.setScene(scene);
                 stage.show();
@@ -181,11 +181,16 @@ public class AddAppointmentViewController implements Initializable {
             //Alert that This Appointment is outside of EST Business Hours
             AlertHelper.warning(LocaleDesignation.LocalLang.getString("outsideHoursTitle"),LocaleDesignation.LocalLang.getString("outsideHoursContent"));
         }
+
     }
 
     /**
      * This is the Initialize method, which will execute when the Add Appointment Scene is opened. It will initialize many important pieces of the Add Appointment Scene.
      *
+     *LAMBDA EXPRESSION 1: Here is where I also use my first Lambda expression. Unfortunately I did the lambda expressions at the end. If I understood how they worked in the
+     * beginning of this project, the project would be much more efficient. I had a bad Appointment ID generator built into the Appointment Class which caused errors.
+     * Using a Lambda in this scenario was perfect since the logic needed for the Appointment ID Generator method was simple enough to not warrant an entire class, which is why I chose this
+     * use case for implementation.
      *
      * @param url
      * @param resourceBundle
@@ -211,9 +216,21 @@ public class AddAppointmentViewController implements Initializable {
         appointmentAddFormSaveButton.setText(LocaleDesignation.LocalLang.getString("addAptSaveButtonText"));
         cancelButton.setText(LocaleDesignation.LocalLang.getString("addAptCancelButtonText"));
 
-        //Prepping the form
+        //Setting AppointmentID text and Disabling the Field
+        //Implementing a Lambda Expression for the Appointment ID
+
+        AppointmentIDGenerator appointmentIdGenerator = (x) -> {
+            ArrayList<Integer> appointmentIds = new ArrayList<>();
+            for (Appointment currentAppointment : x) {
+                appointmentIds.add(currentAppointment.getAppointmentId());
+            }
+            return LowestAvalibleNumberHelper.lowestNumberFinder(appointmentIds);
+        };
+
+        int newID = appointmentIdGenerator.idGeneratorMethod(ObservableListHelper.getAppointments());
+
         appointmentIdTextField.setDisable(true);
-        appointmentIdTextField.setText(String.valueOf(Appointment.appointmentIdGenerator()));
+        appointmentIdTextField.setText(String.valueOf(newID));
 
         //Setting Choice Box Values
         userIdChoiceBox.getItems().addAll(userIdChoiceBoxValues);

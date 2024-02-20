@@ -242,7 +242,7 @@ public class ReportViewController implements Initializable {
 
         Parent root = FXMLLoader.load(MainApplication.class.getResource("main-schedule-view.fxml"));
         Stage stage = (Stage) backButton.getScene().getWindow();
-        Scene scene = new Scene(root, 790, 400);
+        Scene scene = new Scene(root, 770, 400);
         stage.setTitle("Appointment Management Program (AMP)");
         stage.setScene(scene);
         stage.show();
