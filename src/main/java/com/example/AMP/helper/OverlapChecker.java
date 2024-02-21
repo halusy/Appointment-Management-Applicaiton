@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * This class handles all the methods associated with appointment overlap, and scheduling appointments outside the normal business hours
@@ -129,7 +130,7 @@ public class OverlapChecker {
 
         for (Appointment checkingAppointment : appointments) {
 
-            if (checkingAppointment.getAppointmentId() == customerId) {
+            if (checkingAppointment.getCustomerId() == customerId) {
 
                 customerAppointments.add(checkingAppointment);
 
@@ -137,33 +138,43 @@ public class OverlapChecker {
         }
 
         if (customerAppointments.isEmpty()){
-
             return true;
-
         }
 
         else {
 
+            int noOverlap = 0;
+            int overlap =0;
+
             for (Appointment appointmentDateCheck : customerAppointments) {
-
-
 
                 Timestamp endAptTime = ZoneIdHelper.timeConverterUtc(appointmentDateCheck.getEndDate());
                 Timestamp startAptTime = ZoneIdHelper.timeConverterUtc(appointmentDateCheck.getStartDate());
 
-                if (endTime.toLocalDateTime().toLocalDate() != endAptTime.toLocalDateTime().toLocalDate() && startTime.toLocalDateTime().toLocalDate() != startAptTime.toLocalDateTime().toLocalDate()){
+                LocalDate endDate = endTime.toLocalDateTime().toLocalDate();
+                LocalDate startDate = startTime.toLocalDateTime().toLocalDate();
+                LocalDate endAptDate = endAptTime.toLocalDateTime().toLocalDate();
+                LocalDate startAptDate = startAptTime.toLocalDateTime().toLocalDate();
 
-                    return true;
+                if (!(endDate.equals(endAptDate)) && (!startDate.equals(startAptDate))){
 
+                } else {
+                    if (startTime.before(endAptTime) && endTime.after(startAptTime) || startTime.equals(startAptTime)) {
+                    overlap++;
+                    }
                 }
-
-                if (startTime.before(endAptTime) && endTime.after(startAptTime)) {
-
-                    return false;
-
-                } else return true;
             }
+
+            if (overlap == 0){
+
+                return true;
+
+            } else {
+
+                return false;
+            }
+
         }
-        return false;
+
     }
 }
