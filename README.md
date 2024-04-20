@@ -1,7 +1,8 @@
-#Appointment Management Application
-##By: Nicholas Ryan
+# Appointment Management Application
+## By: Nicholas Ryan
 
 This is my Appointment Management Application. 
+
 
 Coded in Java and using JDBC to interface with an SQL Database, it allows users to create, modify, and delete appointments, customers, and users, all stored in the SQL Database. 
 The program implements functioning Login Portal, checking user input against credentials also stored in the SQL Database. 
